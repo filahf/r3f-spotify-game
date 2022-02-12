@@ -1,6 +1,7 @@
 import Infobox from '@/components/dom/Infobox'
+
 import { GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 
 const Box = dynamic(() => import('@/components/canvas/Box'), {
@@ -8,7 +9,11 @@ const Box = dynamic(() => import('@/components/canvas/Box'), {
 })
 
 const DOM = () => {
-  return <Infobox />
+  return (
+    <>
+      <Infobox />
+    </>
+  )
 }
 
 const R3F = () => {
@@ -36,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       title: 'Box',
-      session,
+      session: session,
     },
   }
 }

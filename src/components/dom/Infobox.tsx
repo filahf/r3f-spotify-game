@@ -1,5 +1,7 @@
+import useSpotify from '@/hooks/useSpotify'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
 const Box = styled.div`
@@ -8,7 +10,7 @@ const Box = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  background-color: 'rgb(27, 30, 40)';
+  background-color: rgb(27, 30, 40);
   font-size: 1rem;
   top: 2rem;
   left: 50%;
@@ -27,13 +29,14 @@ const UserBox = styled.div`
 
 export default function Instructions() {
   const { data: session } = useSession()
+  console.log(session)
+
+  const spotifyApi = useSpotify()
+
+  useEffect(() => console.log(spotifyApi.getAccessToken()), [spotifyApi])
 
   return (
-    <Box
-      style={{
-        backgroundColor: 'rgb(27, 30, 40)',
-      }}
-    >
+    <Box>
       <p>
         This game is built using Next.js + Three.js. To enter the game you need
         to be authorized.

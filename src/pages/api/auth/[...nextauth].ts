@@ -5,6 +5,7 @@ import { JWT } from 'next-auth/jwt'
 
 const scopes = [
   'user-read-email',
+  'user-read-private',
   'streaming',
   'user-read-playback-state',
   'user-modify-playback-state',
