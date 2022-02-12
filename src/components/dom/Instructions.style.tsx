@@ -15,8 +15,6 @@ export const InstructionsStyle = styled.div`
     0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  pointer-events: none;
-  user-select: none;
   @media (min-width: 768px) {
     font-size: 1rem;
     line-height: 1.5rem;
