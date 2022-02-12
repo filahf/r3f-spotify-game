@@ -1,19 +1,40 @@
-import { scopes } from '@/lib/spotify'
 import NextAuth from 'next-auth'
 import SpotifyProvider from 'next-auth/providers/spotify'
 import { colorError, colorPass, colorWarning } from '@/lib/utils'
-import spotifyApi from '@/lib/spotify'
 import { JWT } from 'next-auth/jwt'
+
+const scopes = [
+  'user-read-email',
+  'streaming',
+  'user-read-playback-state',
+  'user-modify-playback-state',
+  'user-read-currently-playing',
+].join(',')
 
 const refreshAccessToken = async (token: JWT) => {
   try {
-    // spotifyApi.setClientId(process.env.SPOTIFY_CLIENT_ID || '')
-    // spotifyApi.setClientSecret(process.env.SPOTIFY_CLIENT_SECRET || '')
-    spotifyApi.setAccessToken(token.accessToken as string)
-    spotifyApi.setRefreshToken(token.refreshToken as string)
+    const url =
+      'https://accounts.spotify.com/api/token?' +
+      new URLSearchParams({
+        client_id: process.env.SPOTIFY_CLIENT_ID || '',
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET || '',
+        grant_type: 'refresh_token',
+        refresh_token: token.refreshToken as string,
+      })
 
-    const { body: refreshedToken } = await spotifyApi.refreshAccessToken()
-    console.log(colorWarning('REFRESHED TOKEN IS', refreshedToken))
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      method: 'POST',
+    })
+
+    const refreshedToken = await response.json()
+
+    response.ok && console.log(colorPass('REFRESHED TOKEN'))
+    if (!response.ok) {
+      throw refreshedToken
+    }
 
     return {
       ...token,
