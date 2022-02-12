@@ -13,8 +13,12 @@ const DomStyle = styled.div`
   overflow: hidden;
 `
 
-const Dom = ({ children }) => {
-  const ref = useRef(null)
+type DomType = {
+  children: JSX.Element
+}
+
+const Dom = ({ children }: DomType) => {
+  const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     useStore.setState({ dom: ref })
   }, [])
