@@ -45,7 +45,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
 
   useEffect(() => {
-    useStore.setState({ router })
+    useStore.setState({ router: router })
   }, [router])
 
   const child = Component(pageProps).props.children

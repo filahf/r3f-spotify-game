@@ -1,4 +1,6 @@
 import Infobox from '@/components/dom/Infobox'
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 
 const Box = dynamic(() => import('@/components/canvas/Box'), {
@@ -6,10 +8,7 @@ const Box = dynamic(() => import('@/components/canvas/Box'), {
 })
 
 const DOM = () => {
-  return (
-    // Step 5 - delete Instructions components
-    <Infobox />
-  )
+  return <Infobox />
 }
 
 const R3F = () => {
@@ -32,10 +31,12 @@ const Page = () => {
 
 export default Page
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx)
   return {
     props: {
       title: 'Box',
+      session,
     },
   }
 }
