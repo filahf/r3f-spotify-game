@@ -1,3 +1,4 @@
+// @ts-nocheck
 function partition(array, isValid) {
   return array.reduce(
     ([pass, fail], elem) => {
