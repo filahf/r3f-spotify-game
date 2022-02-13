@@ -1,9 +1,12 @@
-declare module '*.vert' {
-  const content: string
-  export default content
-}
+import 'next-auth'
 
-declare module '*.frag' {
-  const content: string
-  export default content
+declare module 'next-auth' {
+  interface User {
+    accessToken: string
+    refreshToken: string
+  }
+
+  interface Session {
+    user: User
+  }
 }

@@ -626,6 +626,11 @@
   dependencies:
     "@types/spotify-api" "*"
 
+"@types/spotify-web-playback-sdk@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@types/spotify-web-playback-sdk/-/spotify-web-playback-sdk-0.1.12.tgz#e1178736dc76fee5c151a79d94913d522e8f1cd2"
+  integrity sha512-qlKVNdHiQLSztUoMTz7Zo8Dxmzcd1k89Ct2XsNMVl8BfCzotovae/hSLvHPoua/N8i592LZ1q0SsgtQH6JT+vA==
+
 "@types/styled-components@^5.1.22":
   version "5.1.22"
   resolved "https://registry.npmjs.org/@types/styled-components/-/styled-components-5.1.22.tgz"
@@ -634,6 +639,11 @@
     "@types/hoist-non-react-statics" "*"
     "@types/react" "*"
     csstype "^3.0.2"
+
+"@types/three@^0.137.0":
+  version "0.137.0"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.137.0.tgz#6047e0658262b4de7c464a40288f9071ddd9a6d5"
+  integrity sha512-Xc5EAlfYmgrCLI/VlSVqiRJAtzhWF0Rw2jSq48nqJy+Hcb5sfDOXyfZn1+RNcHyi9l8CeCAXCZygO8IyeOJVEA==
 
 "@typescript-eslint/parser@^5.0.0":
   version "5.11.0"
