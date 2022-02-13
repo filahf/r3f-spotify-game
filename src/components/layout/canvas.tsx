@@ -8,14 +8,19 @@ const LControl = () => {
   const control = useRef(null)
 
   useEffect(() => {
-    if (control) {
+    if (control && dom?.current) {
       dom.current.style['touch-action'] = 'none'
     }
   }, [dom, control])
   // @ts-ignore
   return <OrbitControls ref={control} domElement={dom.current} />
 }
-const LCanvas = ({ children }) => {
+
+type LCanvasProps = {
+  children: JSX.Element
+}
+
+const LCanvas = ({ children }: LCanvasProps) => {
   const dom = useStore((state) => state.dom)
 
   return (
@@ -25,7 +30,11 @@ const LCanvas = ({ children }) => {
         position: 'absolute',
         top: 0,
       }}
-      onCreated={(state) => state.events.connect(dom.current)}
+      onCreated={(state) => {
+        if (state.events.connect && dom?.current) {
+          state.events.connect(dom.current)
+        }
+      }}
     >
       <LControl />
       <Preload all />
