@@ -52,7 +52,6 @@ const Navbar = () => {
                 />
               ))}
               {session && <NewButton />} */}
-              <p>hej</p>
             </HStack>
           </HStack>
           <HStack alignItems='center' spacing={2}>
