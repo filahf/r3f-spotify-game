@@ -1,18 +1,6 @@
 import useStore from '@/helpers/store'
 import { useEffect, useRef } from 'react'
 
-import styled from 'styled-components'
-
-const DomStyle = styled.div`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 10;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-`
-
 type DomType = {
   children: JSX.Element
 }
@@ -23,7 +11,14 @@ const Dom = ({ children }: DomType) => {
     useStore.setState({ dom: ref })
   }, [])
 
-  return <DomStyle ref={ref}>{children}</DomStyle>
+  return (
+    <div
+      className='absolute top-0 left-0 z-10 w-screen h-screen overflow-hidden dom'
+      ref={ref}
+    >
+      {children}
+    </div>
+  )
 }
 
 export default Dom

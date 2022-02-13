@@ -1,48 +1,17 @@
-import useSpotify from '@/hooks/useSpotify'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useEffect } from 'react'
-import styled from 'styled-components'
-
-const Box = styled.div`
-  position: absolute;
-  max-width: 32rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(27, 30, 40);
-  font-size: 1rem;
-  top: 2rem;
-  left: 50%;
-  transform: translate(-50%);
-  color: rgb(249 250 251);
-`
-
-const UserBox = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-  flex-direction: column;
-  margin: 1rem 0;
-`
 
 export default function Instructions() {
   const { data: session } = useSession()
-  console.log(session)
-
-  const spotifyApi = useSpotify()
-
-  useEffect(() => console.log(spotifyApi.getAccessToken()), [spotifyApi])
 
   return (
-    <Box>
+    <div className='absolute max-w-lg px-4 py-2 text-sm shadow-xl md:text-base top-8 left-1/2 text-gray-50 transform -translate-x-1/2'>
       <p>
         This game is built using Next.js + Three.js. To enter the game you need
         to be authorized.
       </p>
 
-      <UserBox>
+      <div className='container flex mx-auto px-4'>
         {session && (
           <>
             {session.user?.image && (
@@ -60,10 +29,10 @@ export default function Instructions() {
             <span>{session?.user?.name}</span>
           </>
         )}
-      </UserBox>
+      </div>
       <div>
         <button onClick={() => signOut()}>Sign Out</button>
       </div>
-    </Box>
+    </div>
   )
 }
