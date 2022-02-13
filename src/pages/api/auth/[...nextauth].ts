@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import SpotifyProvider from 'next-auth/providers/spotify'
-import { colorError, colorPass, colorWarning } from '@/lib/utils'
+import { colorError, colorPass, colorWarning, authLog } from '@/lib/utils'
 import { JWT } from 'next-auth/jwt'
 
 const scopes = [
@@ -32,7 +32,7 @@ const refreshAccessToken = async (token: JWT) => {
 
     const refreshedToken = await response.json()
 
-    response.ok && console.log(colorPass('REFRESHED TOKEN'))
+    response.ok && authLog(colorPass('succesfully refreshed token'))
     if (!response.ok) {
       throw refreshedToken
     }
@@ -44,7 +44,7 @@ const refreshAccessToken = async (token: JWT) => {
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     }
   } catch (error) {
-    console.log(colorError(error))
+    authLog(colorError(error))
     return {
       ...token,
       error: 'RefreshAccessTokenError',
@@ -77,14 +77,15 @@ export default NextAuth({
       }
       // Return previous token if the access token has not expired
       if (Date.now() < (token.accessTokenExpires as number)) {
-        console.log(colorPass('EXISTING TOKEN VALID'))
+        authLog(colorPass('existing token valid'))
         return token
       }
 
       // Access token expired
-      console.log(colorWarning('TOKEN HAS EXPIRED, REFRESHING...'))
+      authLog(colorWarning('token has expired, refreshing...'))
       return refreshAccessToken(token)
     },
+    // @ts-ignore
     async session({ session, token }) {
       return {
         ...session,
