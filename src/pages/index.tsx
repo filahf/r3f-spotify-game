@@ -1,32 +1,11 @@
 import Infobox from '@/components/dom/Infobox'
-import dynamic from 'next/dynamic'
-
-const Box = dynamic(() => import('@/components/canvas/Box'), {
-  ssr: false,
-})
-
-const DOM = () => {
-  return (
-    <>
-      <Infobox />
-    </>
-  )
-}
-
-const R3F = () => {
-  return (
-    <>
-      <Box route='/' />
-    </>
-  )
-}
+import Search from '@/components/dom/search'
 
 const Page = () => {
   return (
     <>
-      <DOM />
-      {/* @ts-ignore */}
-      <R3F r3f />
+      <Infobox />
+      <Search />
     </>
   )
 }

@@ -1,32 +1,21 @@
-import { InferGetServerSidePropsType } from 'next'
-import { getProviders, signIn } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
+import dynamic from 'next/dynamic'
 
-const Login = ({
-  providers,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
+const Box = dynamic(() => import('@/components/canvas/Box'), {
+  ssr: false,
+})
+
+const Login = () => {
   return (
     <>
-      <div>Login Page</div>
-      {providers &&
-        Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            <button onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
-              {provider.name}
-            </button>
-          </div>
-        ))}
+      <div>
+        <button onClick={() => signIn('spotify', { callbackUrl: '/' })}>
+          Sign in with Spotify
+        </button>
+      </div>
+      <Box r3f route='/' />
     </>
   )
-}
-
-export const getServerSideProps = async () => {
-  const providers = await getProviders()
-
-  return {
-    props: {
-      providers: providers,
-    },
-  }
 }
 
 export default Login

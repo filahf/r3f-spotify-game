@@ -11,3 +11,11 @@ declare module 'next-auth' {
     user: User
   }
 }
+
+declare global {
+  namespace JSX {
+    interface IntrinsicAttributes {
+      r3f?: boolean
+    }
+  }
+}
