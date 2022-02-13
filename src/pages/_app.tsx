@@ -5,9 +5,9 @@ import { useEffect } from 'react'
 import Header from '@/config'
 import Dom from '@/components/layout/dom'
 import partition from '@/helpers/partition'
-import '@/styles/index.css'
 import dynamic from 'next/dynamic'
 import { SessionProvider } from 'next-auth/react'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const LCanvas = dynamic(() => import('@/components/layout/canvas'), {
   ssr: false,
@@ -35,14 +35,16 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
 
   return (
     <>
-      <SessionProvider>
-        <Header title={pageProps.title} />
-        {child && child.length > 1 ? (
-          <Balance child={Component(pageProps).props.children} />
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </SessionProvider>
+      <ChakraProvider resetCSS>
+        <SessionProvider>
+          <Header title={pageProps.title} />
+          {child && child.length > 1 ? (
+            <Balance child={Component(pageProps).props.children} />
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </SessionProvider>
+      </ChakraProvider>
     </>
   )
 }

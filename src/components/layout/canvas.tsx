@@ -1,8 +1,9 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Preload } from '@react-three/drei'
 import useStore from '@/helpers/store'
-import { useEffect, useRef } from 'react'
+import { CSSProperties, useEffect, useRef } from 'react'
 
+import { Box } from '@chakra-ui/react'
 const LControl = () => {
   const dom = useStore((state) => state.dom)
   const control = useRef(null)
@@ -23,13 +24,17 @@ type LCanvasProps = {
 const LCanvas = ({ children }: LCanvasProps) => {
   const dom = useStore((state) => state.dom)
 
+  const style: CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: '100vh',
+  }
+
   return (
     <Canvas
       mode='concurrent'
-      style={{
-        position: 'absolute',
-        top: 0,
-      }}
+      style={style}
       onCreated={(state) => {
         if (state.events.connect && dom?.current) {
           state.events.connect(dom.current)
