@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic'
 import { SessionProvider } from 'next-auth/react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { AppProps } from 'next/app'
+import theme from '@/helpers/theme'
 
 const LCanvas = dynamic(() => import('@/components/layout/canvas'), {
   ssr: false,
@@ -36,7 +37,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
   return (
     <>
-      <ChakraProvider resetCSS>
+      <ChakraProvider resetCSS theme={theme}>
         <SessionProvider>
           <Header title={pageProps.title} />
           {child && child.length > 1 ? (
