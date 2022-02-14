@@ -21,4 +21,12 @@ const Page = () => {
   )
 }
 
+export const getStaticProps = async () => {
+  return {
+    props: {
+      title: 'Home',
+    },
+  }
+}
+
 export default Page
