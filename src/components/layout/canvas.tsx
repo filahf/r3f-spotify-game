@@ -1,7 +1,6 @@
-import { Canvas } from '@react-three/fiber'
 import { Preload } from '@react-three/drei'
-import useStore from '@/helpers/store'
-import { CSSProperties, useEffect, useRef } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { CSSProperties } from 'react'
 
 type LCanvasProps = {
   children: JSX.Element

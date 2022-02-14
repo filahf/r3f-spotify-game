@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
-const track = {
-  name: '',
-  album: {
-    images: [{ url: '' }],
-  },
-  artists: [{ name: '' }],
-}
-const useSpotifyPlayer = (accessToken: string | undefined) => {
-  const [is_paused, setPaused] = useState(false)
-  const [is_active, setActive] = useState(false)
-  const [player, setPlayer] = useState<Spotify.Player>()
-  const [current_track, setTrack] = useState(track)
+import useStore from '@/helpers/store'
+import { useToast } from '@chakra-ui/react'
+import { useEffect } from 'react'
 
+const useSpotifyPlayer = (accessToken: string | undefined) => {
+  const toast = useToast()
   useEffect(() => {
-    if (!accessToken) return
+    if (!accessToken) {
+      console.log('Couldnt start spotify player')
+      return
+    }
+
+    if (document.querySelector('script#spotify-sdk') !== null) return
+
     const script = document.createElement('script')
     script.src = 'https://sdk.scdn.co/spotify-player.js'
     script.async = true
+    script.id = 'spotify-sdk'
 
     document.body.appendChild(script)
 
@@ -29,10 +28,10 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
         volume: 0.5,
       })
 
-      setPlayer(player)
+      useStore.setState({ spotifyWebPlayer: player })
 
       player.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id)
+        useStore.setState({ deviceId: device_id })
       })
 
       player.addListener('not_ready', ({ device_id }) => {
@@ -43,20 +42,30 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
         if (!state) {
           return
         }
+        console.log('state change', state)
 
-        setTrack(state.track_window.current_track)
-        setPaused(state.paused)
+        useStore.setState({ currentTrack: state.track_window.current_track })
+        useStore.setState({ isPlaying: state.paused })
 
         player.getCurrentState().then((state) => {
-          !state ? setActive(false) : setActive(true)
+          if (state && !useStore.getState().connected) {
+            toast({
+              title: 'Account created.',
+              description: "We've created your account for you.",
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
+          }
+          !state
+            ? useStore.setState({ connected: false })
+            : useStore.setState({ connected: true })
         })
       })
 
       player.connect()
     }
-  }, [accessToken])
-
-  return { is_active, is_paused, player, current_track }
+  }, [accessToken, toast])
 }
 
 export default useSpotifyPlayer

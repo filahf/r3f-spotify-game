@@ -1,5 +1,3 @@
-import useStore from '@/helpers/store'
-import { useEffect, useRef } from 'react'
 import { Container } from '@chakra-ui/react'
 
 type DomType = {
