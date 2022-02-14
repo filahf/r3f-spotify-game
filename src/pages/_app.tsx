@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useRouter } from 'next/router'
 import useStore from '@/helpers/store'
 import { useEffect } from 'react'
@@ -8,13 +7,14 @@ import partition from '@/helpers/partition'
 import dynamic from 'next/dynamic'
 import { SessionProvider } from 'next-auth/react'
 import { ChakraProvider } from '@chakra-ui/react'
+import { AppProps } from 'next/app'
 
 const LCanvas = dynamic(() => import('@/components/layout/canvas'), {
   ssr: false,
 })
 
-const Balance = ({ child }) => {
-  const [r3f, dom] = partition(child, (c) => c.props?.r3f === true)
+const Balance = ({ child }: { child: JSX.Element }) => {
+  const [r3f, dom] = partition(child, (c: JSX.Element) => c.props?.r3f === true)
 
   return (
     <>
@@ -24,13 +24,14 @@ const Balance = ({ child }) => {
   )
 }
 
-function App({ Component, pageProps: { session, ...pageProps } }) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter()
 
   useEffect(() => {
     useStore.setState({ router: router })
   }, [router])
 
+  // @ts-ignore
   const child = Component(pageProps).props.children
 
   return (
@@ -39,6 +40,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
         <SessionProvider>
           <Header title={pageProps.title} />
           {child && child.length > 1 ? (
+            // @ts-ignore
             <Balance child={Component(pageProps).props.children} />
           ) : (
             <Component {...pageProps} />
