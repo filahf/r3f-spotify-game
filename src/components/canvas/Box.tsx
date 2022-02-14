@@ -19,12 +19,17 @@ const BoxComponent = ({ route }: BoxComponentProps) => {
       ? (mesh.current!.rotation.y = mesh.current!.rotation.x += 0.01)
       : null
   )
-  // Return the view, these are regular Threejs elements expressed in JSX
+
+  const handleOnClick = () => {
+    if (!route) return
+    router && router.push(route)
+  }
+  // Return the view, these are regular Threejs elements expressed in JSX route ? () => router && router.push(route) : undefined
   return (
     <>
       <mesh
         ref={mesh}
-        onClick={route ? () => router && router.push(route) : undefined}
+        onClick={() => handleOnClick()}
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
         scale={hovered ? 1.1 : 1}
