@@ -24,6 +24,8 @@ const SearchItem = ({ onSelect, track }: SearchItemProps) => {
     <ListItem
       tabIndex={0}
       bg={'blackAlpha.300'}
+      _hover={{ bg: 'blackAlpha.500' }}
+      cursor={'pointer'}
       p={2}
       rounded={'sm'}
       onClick={() => onSelect(track)}

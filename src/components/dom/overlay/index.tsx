@@ -17,7 +17,7 @@ export default function Overlay() {
   useSpotifyPlayer(session?.user.accessToken)
 
   return (
-    <Stack textAlign={'center'}>
+    <Stack textAlign={'center'} py={4}>
       <VStack>
         <Text>Current track: {track ? track.name : 'undefined'}</Text>
         <Text>Spotify remote: {connected ? 'YES' : 'NO'} </Text>

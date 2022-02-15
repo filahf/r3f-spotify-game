@@ -53,6 +53,7 @@ const Search = () => {
     setQuery('')
     setResults(undefined)
     onClose()
+    useStore.setState({ selectedTrack: null })
   }, [onClose])
 
   const handleSelection = (selection: SpotifyApi.TrackObjectFull) => {
@@ -65,12 +66,11 @@ const Search = () => {
   return (
     <Box>
       <Button onClick={onOpen}>Select Track</Button>
-
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <InputGroup>
+            <InputGroup my={4}>
               <InputLeftElement pointerEvents='none'>
                 <SearchIcon color='gray.300' />
               </InputLeftElement>
@@ -81,7 +81,7 @@ const Search = () => {
                 onChange={(e) => setQuery(e.target.value)}
               />
             </InputGroup>
-            <List spacing={2}>
+            <List spacing={2} mb={3}>
               {results &&
                 !isSearching &&
                 results.map((result) => (

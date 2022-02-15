@@ -39,27 +39,31 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
       })
 
       player.addListener('player_state_changed', (state) => {
-        if (!state) {
-          return
+        if (state) {
+          useStore.setState({
+            currentTrack: state.track_window.current_track,
+            isPlaying: state.paused,
+          })
         }
-        console.log('state change', state)
-
-        useStore.setState({ currentTrack: state.track_window.current_track })
-        useStore.setState({ isPlaying: state.paused })
 
         player.getCurrentState().then((state) => {
           if (state && !useStore.getState().connected) {
             toast({
-              title: 'Account created.',
-              description: "We've created your account for you.",
+              title: "You've connected Spotify.",
               status: 'success',
               duration: 9000,
               isClosable: true,
             })
           }
-          !state
-            ? useStore.setState({ connected: false })
-            : useStore.setState({ connected: true })
+          if (!state && useStore.getState().connected) {
+            toast({
+              title: "You've lost connection to Spotify.",
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+            })
+          }
+          useStore.setState({ connected: !!state })
         })
       })
 
