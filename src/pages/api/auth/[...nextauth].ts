@@ -1,7 +1,7 @@
+import { authLog, colorError, colorPass, colorWarning } from '@/utils/chalkLog'
 import NextAuth from 'next-auth'
-import SpotifyProvider from 'next-auth/providers/spotify'
-import { colorError, colorPass, colorWarning, authLog } from '@/lib/utils'
 import { JWT } from 'next-auth/jwt'
+import SpotifyProvider from 'next-auth/providers/spotify'
 
 const scopes = [
   'user-read-email',

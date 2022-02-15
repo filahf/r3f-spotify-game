@@ -1,11 +1,12 @@
-import useStore from '@/helpers/store'
 import useSpotifyPlayer from '@/hooks/useSpotifyPlayer'
+import useStore from '@/utils/store'
 import { Stack, Text, VStack } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
+
 import Search from '../search'
 import UserAvatar from '../user-avatar'
 
-export default function Instructions() {
+export default function Overlay() {
   const { data: session } = useSession()
 
   const track = useStore((s) => s.currentTrack)

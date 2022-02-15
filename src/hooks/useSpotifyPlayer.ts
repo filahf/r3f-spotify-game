@@ -1,4 +1,4 @@
-import useStore from '@/helpers/store'
+import useStore from '@/utils/store'
 import { useToast } from '@chakra-ui/react'
 import { useEffect } from 'react'
 

@@ -1,45 +1,60 @@
-import useStore from '@/helpers/store'
+import { useControls } from '@/hooks/useControls'
+import { animated, useSpring } from '@react-spring/three'
 import { useFrame } from '@react-three/fiber'
-import { useRef, useState } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import * as THREE from 'three'
 
-type BoxComponentProps = {
-  route?: string
-}
-
-const BoxComponent = ({ route }: BoxComponentProps) => {
-  const router = useStore((s) => s.router)
-  // This reference will give us direct access to the THREE.Mesh object
+const BoxComponent = () => {
   const mesh = useRef<THREE.Mesh>(null)
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) =>
-    mesh.current
-      ? (mesh.current!.rotation.y = mesh.current!.rotation.x += 0.01)
-      : null
-  )
+  const [active, setActive] = useState(false)
 
-  const handleOnClick = () => {
-    if (!route) return
-    router && router.push(route)
-  }
-  // Return the view, these are regular Threejs elements expressed in JSX route ? () => router && router.push(route) : undefined
+  const controls = useControls()
+  const [{ x }, api] = useSpring(() => ({
+    x: 0,
+    config: { duration: 200 },
+  }))
+
+  // Movement
+  useFrame((state) => {
+    if (mesh.current && active) {
+      mesh.current.position.z = state.clock.getElapsedTime() * 100
+      state.camera.position.z = mesh.current.position.z - 50
+    }
+  })
+  // Controls
+  useFrame(() => {
+    if (mesh.current && controls.current) {
+      if (controls.current.right) {
+        if (mesh.current.position.x > 0) {
+          api({ x: 0 })
+        } else {
+          api({ x: -20 })
+        }
+      }
+
+      if (controls.current.left) {
+        if (mesh.current.position.x < 0) {
+          api({ x: 0 })
+        } else {
+          api({ x: 20 })
+        }
+      }
+    }
+  })
+
   return (
-    <>
-      <mesh
+    <Suspense fallback={null}>
+      <animated.mesh
         ref={mesh}
-        onClick={() => handleOnClick()}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-        scale={hovered ? 1.1 : 1}
+        onClick={() => setActive((s) => !s)}
+        position-x={x}
       >
-        <boxBufferGeometry args={[1, 1, 1]} />
+        <boxBufferGeometry args={[3, 3, 3]} />
         <meshPhysicalMaterial color={'#1DB954'} />
-      </mesh>
+      </animated.mesh>
       <directionalLight position={[5, 5, 5]} />
       <ambientLight />
-    </>
+    </Suspense>
   )
 }
 export default BoxComponent

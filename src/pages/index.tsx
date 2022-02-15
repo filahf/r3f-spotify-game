@@ -1,7 +1,5 @@
-import { Stack } from '@chakra-ui/react'
-import Overlay from '@/components/dom/overlay'
-import Search from '@/components/dom/search'
 import BoxComponent from '@/components/canvas/Box'
+import Overlay from '@/components/dom/overlay'
 
 const Page = () => {
   return (

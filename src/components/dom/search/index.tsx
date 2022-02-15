@@ -1,6 +1,6 @@
-import useStore from '@/helpers/store'
 import useDebounce from '@/hooks/useDebounce'
 import useSpotify from '@/hooks/useSpotify'
+import useStore from '@/utils/store'
 import { SearchIcon } from '@chakra-ui/icons'
 import {
   Box,
@@ -16,6 +16,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+
 import SearchItem, { SearchItemSkeleton } from './search-item'
 
 const Search = () => {

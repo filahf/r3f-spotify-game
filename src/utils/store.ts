@@ -11,8 +11,14 @@ type StoreType = {
   deviceId: string | null
 }
 
-const useStore = create<StoreType>(() => {
+export const GAME_CONSTANTS = {
+  laneWidth: 20,
+}
+
+const useStore = create<StoreType>((set, get) => {
   return {
+    set,
+    get,
     router: null,
     isPlaying: false,
     connected: false,

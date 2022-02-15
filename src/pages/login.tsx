@@ -1,6 +1,6 @@
+import { Button, Heading, Icon, Stack, Text } from '@chakra-ui/react'
 import { signIn } from 'next-auth/react'
 import dynamic from 'next/dynamic'
-import { Heading, Stack, Text, Button, Icon } from '@chakra-ui/react'
 import { BsSpotify } from 'react-icons/bs'
 
 const Box = dynamic(() => import('@/components/canvas/Box'), {

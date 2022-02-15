@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router'
-import useStore from '@/helpers/store'
-import { useEffect } from 'react'
-import Header from '@/config'
 import Dom from '@/components/layout/dom'
-import partition from '@/helpers/partition'
-import dynamic from 'next/dynamic'
-import { SessionProvider } from 'next-auth/react'
+import Header from '@/config'
+import partition from '@/utils/partition'
+import useStore from '@/utils/store'
+import theme from '@/utils/theme'
 import { ChakraProvider } from '@chakra-ui/react'
+import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
-import theme from '@/helpers/theme'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const LCanvas = dynamic(() => import('@/components/layout/canvas'), {
   ssr: false,
@@ -38,7 +38,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <ChakraProvider resetCSS theme={theme}>
-        <SessionProvider>
+        <SessionProvider session={session}>
           <Header title={pageProps.title} />
           {child && child.length > 1 ? (
             // @ts-ignore
