@@ -9,6 +9,7 @@ type StoreType = {
   spotifyWebPlayer: Spotify.Player | null
   currentTrack: Spotify.Track | null
   deviceId: string | null
+  audioAnalysis: SpotifyApi.AudioAnalysisResponse | null
 }
 
 export const GAME_CONSTANTS = {
@@ -26,6 +27,7 @@ const useStore = create<StoreType>((set, get) => {
     spotifyWebPlayer: null,
     currentTrack: null,
     deviceId: null,
+    audioAnalysis: null,
   }
 })
 

@@ -53,12 +53,14 @@ const Search = () => {
     setQuery('')
     setResults(undefined)
     onClose()
-    useStore.setState({ selectedTrack: null })
   }, [onClose])
 
   const handleSelection = (selection: SpotifyApi.TrackObjectFull) => {
     useStore.setState({ selectedTrack: selection })
     handleClose()
+    spotifyApi.getAudioAnalysisForTrack(selection.id).then((results) => {
+      useStore.setState({ audioAnalysis: results.body })
+    })
   }
 
   const skeletonArray = new Array(resultLimit).fill(null)
