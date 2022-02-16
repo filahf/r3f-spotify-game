@@ -1,16 +1,14 @@
+import { AudioData } from '@/types'
 import { NextRouter } from 'next/router'
 import create from 'zustand'
 
 type StoreType = {
   router: NextRouter | null
-  isPlaying: boolean
   connected: boolean
   selectedTrack: SpotifyApi.TrackObjectFull | null
   spotifyWebPlayer: Spotify.Player | null
   currentTrack: Spotify.Track | null
-  deviceId: string | null // ta bort
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  audioAnalysis: any | null
+  audioAnalysis: AudioData | null
   startGame: boolean
 }
 
