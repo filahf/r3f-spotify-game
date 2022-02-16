@@ -27,7 +27,7 @@ const Targets = ({ data }: TargetProps) => {
         // (Math.floor(Math.random() * 3) - 1) * 20,
         0,
         0,
-        beats.start * 100 - 7.5
+        beats.start * 100
       )
       tempObject.updateMatrix()
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
