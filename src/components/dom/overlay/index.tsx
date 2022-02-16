@@ -1,7 +1,9 @@
+import useSpotify from '@/hooks/useSpotify'
 import useSpotifyPlayer from '@/hooks/useSpotifyPlayer'
 import useStore from '@/utils/store'
-import { Stack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Stack } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
+import { useCallback } from 'react'
 
 import Search from '../search'
 import UserAvatar from '../user-avatar'
@@ -9,25 +11,33 @@ import UserAvatar from '../user-avatar'
 export default function Overlay() {
   const { data: session } = useSession()
 
-  const track = useStore((s) => s.currentTrack)
+  const player = useStore((s) => s.spotifyWebPlayer)
   const connected = useStore((s) => s.connected)
-  const deviceId = useStore((s) => s.deviceId)
   const selectedTrack = useStore((s) => s.selectedTrack)
+
+  const spotifyApi = useSpotify()
 
   useSpotifyPlayer(session?.user.accessToken)
 
+  const handleOnStart = useCallback(() => {
+    if (!player || !selectedTrack) return
+    spotifyApi.play({ uris: [selectedTrack.uri] }).then(() => {
+      player.seek(0)
+      useStore.setState({ startGame: true })
+    })
+  }, [player, selectedTrack, spotifyApi])
+
   return (
     <Stack textAlign={'center'} py={4}>
-      <VStack>
-        <Text>Current track: {track ? track.name : 'undefined'}</Text>
-        <Text>Spotify remote: {connected ? 'YES' : 'NO'} </Text>
-        <Text>Device id: {deviceId} </Text>
-        <Text>Selected track: {selectedTrack?.name} </Text>
-      </VStack>
       {session && session.user.name && (
         <UserAvatar name={session.user.name} imgSrc={session.user.image} />
       )}
       <Search />
+      {connected && player && selectedTrack && (
+        <Box>
+          <Button onClick={handleOnStart}>START</Button>
+        </Box>
+      )}
     </Stack>
   )
 }

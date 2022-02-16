@@ -27,7 +27,7 @@ const LCanvas = ({ children }: LCanvasProps) => {
       />
       <Preload all />
       {children}
-      <Plane duration={18000} />
+      <Plane />
     </Canvas>
   )
 }

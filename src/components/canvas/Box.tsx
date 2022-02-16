@@ -1,12 +1,13 @@
 import { useControls } from '@/hooks/useControls'
+import useStore from '@/utils/store'
 import { animated, useSpring } from '@react-spring/three'
 import { useFrame } from '@react-three/fiber'
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, useRef } from 'react'
 import * as THREE from 'three'
 
 const BoxComponent = () => {
   const mesh = useRef<THREE.Mesh>(null)
-  const [active, setActive] = useState(false)
+  const start = useStore((s) => s.startGame)
 
   const controls = useControls()
   const [{ x }, api] = useSpring(() => ({
@@ -16,27 +17,29 @@ const BoxComponent = () => {
 
   // Movement
   useFrame((state) => {
-    if (mesh.current && active) {
+    if (mesh.current && start) {
       mesh.current.position.z = state.clock.getElapsedTime() * 100
       state.camera.position.z = mesh.current.position.z - 50
     }
   })
   // Controls
   useFrame(() => {
-    if (mesh.current && controls.current) {
-      if (controls.current.right) {
-        if (mesh.current.position.x > 0) {
-          api({ x: 0 })
-        } else {
-          api({ x: -20 })
+    if (start) {
+      if (mesh.current && controls.current) {
+        if (controls.current.right) {
+          if (mesh.current.position.x > 0) {
+            api({ x: 0 })
+          } else {
+            api({ x: -20 })
+          }
         }
-      }
 
-      if (controls.current.left) {
-        if (mesh.current.position.x < 0) {
-          api({ x: 0 })
-        } else {
-          api({ x: 20 })
+        if (controls.current.left) {
+          if (mesh.current.position.x < 0) {
+            api({ x: 0 })
+          } else {
+            api({ x: 20 })
+          }
         }
       }
     }
@@ -44,11 +47,7 @@ const BoxComponent = () => {
 
   return (
     <Suspense fallback={null}>
-      <animated.mesh
-        ref={mesh}
-        onClick={() => setActive((s) => !s)}
-        position-x={x}
-      >
+      <animated.mesh ref={mesh} position-x={x}>
         <boxBufferGeometry args={[3, 3, 3]} />
         <meshPhysicalMaterial color={'#1DB954'} />
       </animated.mesh>

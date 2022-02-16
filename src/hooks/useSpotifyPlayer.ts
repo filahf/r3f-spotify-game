@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 
 const useSpotifyPlayer = (accessToken: string | undefined) => {
   const toast = useToast()
+  const selectedTrack = useStore((s) => s.selectedTrack)
+
   useEffect(() => {
     if (!accessToken) {
       console.log('Couldnt start spotify player')
@@ -35,15 +37,23 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
       })
 
       player.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id)
+        console.error('Device ID has gone offline', device_id)
       })
 
       player.addListener('player_state_changed', (state) => {
         if (state) {
           useStore.setState({
             currentTrack: state.track_window.current_track,
-            isPlaying: state.paused,
           })
+
+          if (
+            selectedTrack?.uri === state.track_window.current_track.uri &&
+            !state.paused
+          ) {
+            useStore.setState({
+              startGame: true,
+            })
+          }
         }
 
         player.getCurrentState().then((state) => {
@@ -69,7 +79,7 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
 
       player.connect()
     }
-  }, [accessToken, toast])
+  }, [accessToken, toast, selectedTrack])
 }
 
 export default useSpotifyPlayer

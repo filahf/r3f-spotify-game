@@ -63,6 +63,11 @@ const Search = () => {
     })
   }
 
+  const handleOnChange = useCallback((e) => {
+    e.stopPropagation()
+    setQuery(e.target.value)
+  }, [])
+
   const skeletonArray = new Array(resultLimit).fill(null)
 
   return (
@@ -80,7 +85,7 @@ const Search = () => {
                 as='input'
                 ref={initialRef}
                 placeholder='Search Spotify Tracks'
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={handleOnChange}
               />
             </InputGroup>
             <List spacing={2} mb={3}>
