@@ -32,10 +32,6 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
 
       useStore.setState({ spotifyWebPlayer: player })
 
-      player.addListener('ready', ({ device_id }) => {
-        useStore.setState({ deviceId: device_id })
-      })
-
       player.addListener('not_ready', ({ device_id }) => {
         console.error('Device ID has gone offline', device_id)
       })
