@@ -3,7 +3,7 @@ import { signIn } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import { BsSpotify } from 'react-icons/bs'
 
-const Box = dynamic(() => import('@/components/canvas/Box'), {
+const Road = dynamic(() => import('@/components/canvas/road'), {
   ssr: false,
 })
 
@@ -44,7 +44,7 @@ const Login = () => {
           </Button>
         </Stack>
       </Stack>
-      <Box r3f route='/' />
+      <Road r3f />
     </>
   )
 }
