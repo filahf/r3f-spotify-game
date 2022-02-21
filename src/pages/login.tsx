@@ -6,6 +6,9 @@ import { BsSpotify } from 'react-icons/bs'
 const Road = dynamic(() => import('@/components/canvas/road'), {
   ssr: false,
 })
+const Box = dynamic(() => import('@/components/canvas/Box'), {
+  ssr: false,
+})
 
 const Login = () => {
   return (
@@ -44,6 +47,7 @@ const Login = () => {
           </Button>
         </Stack>
       </Stack>
+      <Box r3f />
       <Road r3f />
     </>
   )

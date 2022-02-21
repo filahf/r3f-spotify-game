@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Plane } from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera, Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
@@ -52,24 +52,26 @@ const Road = () => {
   return (
     <>
       <pointLight position={[10, 10, 10]} />
+      <ambientLight />
+      <OrbitControls />
+
       <PerspectiveCamera
         fov={90}
         near={0.1}
         far={10000}
         ref={cameraRef}
         position={[0, 8, -5]}
-        makeDefault={true}
+        makeDefault={false}
       />
 
       <Plane
-        args={[10, 400, 20, 100]}
+        args={[30, 400, 20, 100]}
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0, -200]}
       >
         <roadShaderMaterial
           ref={ref}
-          uColor='hotpink'
-          attach='material'
+          // attach='material'
           side={THREE.DoubleSide}
         />
       </Plane>
