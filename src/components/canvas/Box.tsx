@@ -47,7 +47,7 @@ const BoxComponent = () => {
 
   return (
     <Suspense fallback={null}>
-      <animated.mesh ref={mesh} position-x={x}>
+      <animated.mesh ref={mesh} position-x={x} position-z={-30} position-y={10}>
         <boxBufferGeometry args={[3, 3, 3]} />
         <meshPhysicalMaterial color={'#1DB954'} />
       </animated.mesh>

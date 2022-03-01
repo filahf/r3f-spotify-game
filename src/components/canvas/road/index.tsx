@@ -19,7 +19,6 @@ const Road = () => {
 
   useFrame(({ clock }) => {
     if (ref.current && cameraRef.current) {
-      ref.current.uTime = clock.getElapsedTime() * 0.5
       const uFreq = ref.current.uFreq
       const uAmp = ref.current.uAmp
 
@@ -27,6 +26,7 @@ const Road = () => {
       const camProgress = 0.0125
       const time = clock.getElapsedTime() * 0.5
 
+      ref.current.uTime = time
       lookAtTemp.x =
         Math.sin(progress * Math.PI * uFreq.x + time) * uAmp.x -
         Math.sin(camProgress * Math.PI * uFreq.x + time) * uAmp.x
@@ -53,15 +53,13 @@ const Road = () => {
     <>
       <pointLight position={[10, 10, 10]} />
       <ambientLight />
-      <OrbitControls />
-
       <PerspectiveCamera
         fov={90}
         near={0.1}
         far={10000}
         ref={cameraRef}
         position={[0, 8, -5]}
-        makeDefault={false}
+        makeDefault
       />
 
       <Plane

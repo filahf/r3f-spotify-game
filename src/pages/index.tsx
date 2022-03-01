@@ -1,4 +1,6 @@
 import BoxComponent from '@/components/canvas/Box'
+import Road from '@/components/canvas/road'
+import Targets from '@/components/canvas/targets'
 import Overlay from '@/components/dom/overlay'
 
 const Page = () => {
@@ -6,6 +8,8 @@ const Page = () => {
     <>
       <Overlay />
       <BoxComponent r3f />
+      <Road r3f />
+      <Targets r3f />
     </>
   )
 }
