@@ -1,4 +1,5 @@
-import { OrbitControls, PerspectiveCamera, Plane } from '@react-three/drei'
+import { getXDistortion, getYDistortion } from '@/utils/distortion'
+import { PerspectiveCamera, Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
@@ -19,21 +20,14 @@ const Road = () => {
 
   useFrame(({ clock }) => {
     if (ref.current && cameraRef.current) {
-      const uFreq = ref.current.uFreq
-      const uAmp = ref.current.uAmp
-
       const progress = 0.025
-      const camProgress = 0.0125
+
       const time = clock.getElapsedTime() * 0.5
 
       ref.current.uTime = time
-      lookAtTemp.x =
-        Math.sin(progress * Math.PI * uFreq.x + time) * uAmp.x -
-        Math.sin(camProgress * Math.PI * uFreq.x + time) * uAmp.x
+      lookAtTemp.x = getXDistortion(progress, time)
 
-      lookAtTemp.y =
-        Math.sin(progress * Math.PI * uFreq.y + time) * uAmp.y -
-        Math.sin(camProgress * Math.PI * uFreq.y + time) * uAmp.y
+      lookAtTemp.y = getYDistortion(progress, time)
 
       lookAt.x =
         cameraRef.current.position.x +
@@ -54,24 +48,19 @@ const Road = () => {
       <pointLight position={[10, 10, 10]} />
       <ambientLight />
       <PerspectiveCamera
-        fov={90}
-        near={0.1}
-        far={10000}
+        fov={120}
+        near={0.5}
+        far={400}
         ref={cameraRef}
         position={[0, 8, -5]}
         makeDefault
       />
-
       <Plane
         args={[30, 400, 20, 100]}
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0, -200]}
       >
-        <roadShaderMaterial
-          ref={ref}
-          // attach='material'
-          side={THREE.DoubleSide}
-        />
+        <roadShaderMaterial ref={ref} side={THREE.DoubleSide} />
       </Plane>
     </>
   )

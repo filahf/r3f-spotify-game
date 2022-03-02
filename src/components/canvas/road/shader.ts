@@ -1,3 +1,4 @@
+import { uAmp, uFreq } from '@/utils/distortion'
 import { shaderMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -23,8 +24,8 @@ const RoadShaderMaterial = shaderMaterial(
     uColor: new THREE.Color(0x080808),
     uTravelLength: 400,
     uTime: 0,
-    uFreq: new THREE.Vector2(2, 3),
-    uAmp: new THREE.Vector2(35, 10),
+    uFreq: uFreq,
+    uAmp: uAmp,
     uLanes: 3,
     uBrokenLinesColor: new THREE.Color(0x131318),
     uShoulderLinesColor: new THREE.Color(0x131318),

@@ -1,4 +1,5 @@
 import { useControls } from '@/hooks/useControls'
+import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import useStore from '@/utils/store'
 import { animated, useSpring } from '@react-spring/three'
 import { useFrame } from '@react-three/fiber'
@@ -15,16 +16,9 @@ const BoxComponent = () => {
     config: { duration: 200 },
   }))
 
-  // Movement
-  useFrame((state) => {
-    if (mesh.current && start) {
-      mesh.current.position.z = state.clock.getElapsedTime() * 100
-      state.camera.position.z = mesh.current.position.z - 50
-    }
-  })
   // Controls
   useFrame(() => {
-    if (start) {
+    if (true) {
       if (mesh.current && controls.current) {
         if (controls.current.right) {
           if (mesh.current.position.x > 0) {
@@ -45,10 +39,19 @@ const BoxComponent = () => {
     }
   })
 
+  useFrame(({ clock, camera }) => {
+    if (mesh.current) {
+      const time = clock.getElapsedTime() * 0.5
+      mesh.current.position.x = getXDistortion(-15 / -400, time)
+      mesh.current.position.y = getYDistortion(-15 / -400, time) + 5
+      mesh.current.lookAt(camera.position)
+    }
+  })
+
   return (
     <Suspense fallback={null}>
-      <animated.mesh ref={mesh} position-x={x} position-z={-30} position-y={10}>
-        <boxBufferGeometry args={[3, 3, 3]} />
+      <animated.mesh ref={mesh} position-x={x} position-z={-15}>
+        <boxBufferGeometry args={[3, 2, 3]} />
         <meshPhysicalMaterial color={'#1DB954'} />
       </animated.mesh>
       <directionalLight position={[5, 5, 5]} />

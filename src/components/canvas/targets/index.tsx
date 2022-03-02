@@ -1,4 +1,5 @@
 import { Beat } from '@/types'
+import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import { Instance, Instances } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
@@ -35,11 +36,8 @@ const Target = ({ position }: { position: THREE.Vector3Tuple }) => {
         progress: number,
         time: number
       ): THREE.Vector3Tuple => [
-        Math.sin(progress * Math.PI * 2 + time) * 35 -
-          Math.sin(0.0125 * Math.PI * 2 + time) * 35,
-        Math.sin(progress * Math.PI * 3 + time) * 10 -
-          Math.sin(0.0125 * Math.PI * 3 + time) * 10 +
-          2,
+        getXDistortion(progress, time),
+        getYDistortion(progress, time) + 2,
         ref.current?.position.z || 0,
       ]
 

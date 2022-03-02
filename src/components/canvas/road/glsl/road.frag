@@ -11,7 +11,7 @@ uniform float uBrokenLinesLengthPercentage;
 void main(){
   vec2 uv = vUv;
   vec3 color = vec3(uColor);
-  uv.y = mod(uv.y + uTime * 0.1,1.);
+  uv.y = mod(uv.y + uTime * 0.15,1.);
   float brokenLineWidth = 1. / uLanes * uBrokenLinesWidthPercentage;
   // How much % of the lane's space is empty
   float laneEmptySpace = 1. - uBrokenLinesLengthPercentage;
@@ -22,7 +22,7 @@ void main(){
   color = mix(color, uBrokenLinesColor, brokenLines);
   float shoulderLinesWidth = 1. / uLanes * uShoulderLinesWidthPercentage;
   float shoulderLines = step(1.-shoulderLinesWidth, uv.x) + step(uv.x, shoulderLinesWidth);
-  color = mix(color, uBrokenLinesColor, shoulderLines);
+  color = mix(color, uShoulderLinesColor, shoulderLines);
  
   gl_FragColor = vec4(color,1.);
 }
