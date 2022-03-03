@@ -18,12 +18,17 @@ export function useKeyPress(target: string[], event: (key: boolean) => void) {
 export function useControls() {
   const keys = useRef({
     left: false,
+    center: false,
     right: false,
   })
 
   useKeyPress(
     ['ArrowLeft', 'a'],
     (pressed: boolean) => (keys.current.left = pressed)
+  )
+  useKeyPress(
+    ['ArrowDown', 's'],
+    (pressed: boolean) => (keys.current.center = pressed)
   )
   useKeyPress(
     ['ArrowRight', 'd'],

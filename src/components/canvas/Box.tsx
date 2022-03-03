@@ -11,46 +11,71 @@ const BoxComponent = () => {
   const start = useStore((s) => s.startGame)
 
   const controls = useControls()
+
   const [{ x }, api] = useSpring(() => ({
     x: 0,
     config: { duration: 200 },
   }))
 
+  const lookAtAmp = new THREE.Vector3(0.9, 0, 0)
+
+  const lookAtOffset = new THREE.Vector3(0, 0, -5)
+
+  const lookAtTemp = new THREE.Vector3(0, 0, 0)
+  const lookAt = new THREE.Vector3()
+
   // Controls
   useFrame(() => {
-    if (true) {
+    if (start) {
       if (mesh.current && controls.current) {
-        if (controls.current.right) {
-          if (mesh.current.position.x > 0) {
-            api({ x: 0 })
-          } else {
-            api({ x: -20 })
-          }
+        if (controls.current.left) {
+          api({ x: -10 })
         }
 
-        if (controls.current.left) {
-          if (mesh.current.position.x < 0) {
-            api({ x: 0 })
-          } else {
-            api({ x: 20 })
-          }
+        if (controls.current.center) {
+          api({ x: 0 })
+        }
+
+        if (controls.current.right) {
+          api({ x: 10 })
         }
       }
     }
   })
 
-  useFrame(({ clock, camera }) => {
-    if (mesh.current) {
+  useFrame(({ clock }) => {
+    if (mesh.current && start) {
       const time = clock.getElapsedTime() * 0.5
-      mesh.current.position.x = getXDistortion(-15 / -400, time)
+
+      mesh.current.position.x = getXDistortion(-15 / -400, time) + x.get()
       mesh.current.position.y = getYDistortion(-15 / -400, time) + 5
-      mesh.current.lookAt(camera.position)
+
+      lookAtTemp.x = getXDistortion(15 / 400, time)
+
+      lookAtTemp.y = getYDistortion(15 / 400, time)
+
+      lookAt.x =
+        mesh.current.position.x +
+        lookAtTemp.multiply(lookAtAmp).add(lookAtOffset).x
+      lookAt.y =
+        mesh.current.position.y +
+        lookAtTemp.multiply(lookAtAmp).add(lookAtOffset).y
+      lookAt.z =
+        mesh.current.position.z +
+        lookAtTemp.multiply(lookAtAmp).add(lookAtOffset).z
+
+      mesh.current.lookAt(lookAt)
     }
   })
 
   return (
     <Suspense fallback={null}>
-      <animated.mesh ref={mesh} position-x={x} position-z={-15}>
+      <animated.mesh
+        ref={mesh}
+        position-x={getXDistortion(15 / 400, 0)}
+        position-y={getYDistortion(15 / 400, 0)}
+        position-z={-15}
+      >
         <boxBufferGeometry args={[3, 2, 3]} />
         <meshPhysicalMaterial color={'#1DB954'} />
       </animated.mesh>

@@ -1,4 +1,5 @@
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
+import useStore from '@/utils/store'
 import { PerspectiveCamera, Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
@@ -9,6 +10,7 @@ import RoadShaderMaterial, { RoadShaderMaterialImpl } from './shader'
 extend({ RoadShaderMaterial })
 
 const Road = () => {
+  const start = useStore((s) => s.startGame)
   const ref = useRef<RoadShaderMaterialImpl>()
   const cameraRef = useRef<THREE.Camera>()
 
@@ -19,7 +21,7 @@ const Road = () => {
   const lookAt = new THREE.Vector3()
 
   useFrame(({ clock }) => {
-    if (ref.current && cameraRef.current) {
+    if (ref.current && cameraRef.current && start) {
       const progress = 0.025
 
       const time = clock.getElapsedTime() * 0.5

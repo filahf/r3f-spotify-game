@@ -29,9 +29,9 @@ const RoadShaderMaterial = shaderMaterial(
     uLanes: 3,
     uBrokenLinesColor: new THREE.Color(0x131318),
     uShoulderLinesColor: new THREE.Color(0x131318),
-    uShoulderLinesWidthPercentage: 0.05,
-    uBrokenLinesWidthPercentage: 0.1,
-    uBrokenLinesLengthPercentage: 0.5,
+    uShoulderLinesWidthPercentage: 0.1,
+    uBrokenLinesWidthPercentage: 0.05,
+    uBrokenLinesLengthPercentage: 1,
   },
   vertex,
   fragment
