@@ -6,13 +6,12 @@ import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
 
-const TargetInstance = ({
-  position,
-  offset,
-}: {
+type TargetInstanceProps = {
   position: THREE.Vector3Tuple
   offset: number
-}) => {
+}
+
+const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
   const ref = useRef<THREE.InstancedMesh>()
   const start = useStore((s) => s.startGame)
   const ship = useStore((s) => s.ship)

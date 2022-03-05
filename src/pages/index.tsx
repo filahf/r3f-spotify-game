@@ -1,12 +1,12 @@
 import { Road } from '@/components/canvas/road'
 import { Ship } from '@/components/canvas/ship'
 import { Targets } from '@/components/canvas/targets'
-import Overlay from '@/components/dom/overlay'
+import { Onboarding } from '@/components/dom/overlay'
 
 const Page = () => {
   return (
     <>
-      <Overlay />
+      <Onboarding />
       <Ship r3f />
       <Road r3f />
       <Targets r3f />
