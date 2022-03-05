@@ -21,7 +21,7 @@ const Road = () => {
   const lookAt = new THREE.Vector3()
 
   useFrame(({ clock }) => {
-    if (ref.current && cameraRef.current && start) {
+    if (ref.current && cameraRef.current) {
       const progress = 0.025
 
       const time = clock.getElapsedTime() * 0.5
@@ -50,7 +50,7 @@ const Road = () => {
       <pointLight position={[10, 10, 10]} />
       <ambientLight />
       <PerspectiveCamera
-        fov={120}
+        fov={100}
         near={0.5}
         far={400}
         ref={cameraRef}
@@ -61,6 +61,7 @@ const Road = () => {
         args={[30, 400, 20, 100]}
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0, -200]}
+        receiveShadow
       >
         <roadShaderMaterial ref={ref} side={THREE.DoubleSide} />
       </Plane>

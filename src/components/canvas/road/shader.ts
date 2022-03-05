@@ -21,17 +21,17 @@ export type RoadShaderMaterialImpl = {
 
 const RoadShaderMaterial = shaderMaterial(
   {
-    uColor: new THREE.Color(0x080808),
+    uColor: new THREE.Color('black'),
     uTravelLength: 400,
     uTime: 0,
     uFreq: uFreq,
     uAmp: uAmp,
     uLanes: 3,
     uBrokenLinesColor: new THREE.Color(0x131318),
-    uShoulderLinesColor: new THREE.Color(0x131318),
+    uShoulderLinesColor: new THREE.Color(0x48bb78),
     uShoulderLinesWidthPercentage: 0.1,
     uBrokenLinesWidthPercentage: 0.05,
-    uBrokenLinesLengthPercentage: 1,
+    uBrokenLinesLengthPercentage: 0.3,
   },
   vertex,
   fragment

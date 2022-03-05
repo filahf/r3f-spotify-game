@@ -1,5 +1,7 @@
 import { AudioData } from '@/types'
 import { NextRouter } from 'next/router'
+import { createRef, RefObject } from 'react'
+import * as THREE from 'three'
 import create from 'zustand'
 
 type StoreType = {
@@ -10,6 +12,7 @@ type StoreType = {
   currentTrack: Spotify.Track | null
   audioAnalysis: AudioData | null
   startGame: boolean
+  ship: RefObject<THREE.Mesh>
 }
 
 export const GAME_CONSTANTS = {
@@ -29,6 +32,7 @@ const useStore = create<StoreType>((set, get) => {
     deviceId: null,
     audioAnalysis: null,
     startGame: false,
+    ship: createRef(),
   }
 })
 
