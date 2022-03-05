@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
   }
 }
 
-const BoxComponent = () => {
+const Ship = () => {
   const exhaust = useRef<THREE.Mesh>(null)
 
   const mesh = useStore((s) => s.ship)
@@ -90,6 +90,6 @@ const BoxComponent = () => {
     </Suspense>
   )
 }
-export default BoxComponent
+export default Ship
 
 useGLTF.preload('/Rocket.glb')

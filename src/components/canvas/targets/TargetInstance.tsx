@@ -1,41 +1,12 @@
 import useStore from '@/shared/store'
 import { distance } from '@/utils/distance'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
-import { Instance, Instances } from '@react-three/drei'
+import { Instance } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { Suspense, useMemo, useRef } from 'react'
+import { useRef } from 'react'
 import * as THREE from 'three'
 
-const Targets = () => {
-  const data = useStore((s) => s.audioAnalysis)
-  const confirmedBeats = useMemo(
-    () => data?.beats.filter((beat) => beat.confidence > 0.6),
-    [data]
-  )
-  return (
-    <Suspense fallback={null}>
-      {confirmedBeats && (
-        <Instances limit={confirmedBeats.length}>
-          <sphereGeometry args={[1, 32, 32]} />
-          <meshStandardMaterial roughness={0} color='#F6E05E' />
-          {confirmedBeats.map((data, i) => {
-            const zPosition = data.start * -100
-            const offset = i % 3 ? (Math.floor(Math.random() * 3) - 1) * 10 : 0
-            const position: THREE.Vector3Tuple = [
-              getXDistortion(zPosition / -400, 0) +
-                (Math.floor(Math.random() * 3) - 1) * 3,
-              getYDistortion(zPosition / -400, 0),
-              zPosition,
-            ]
-            return <Target key={i} position={position} offset={offset} />
-          })}
-        </Instances>
-      )}
-    </Suspense>
-  )
-}
-
-const Target = ({
+const TargetInstance = ({
   position,
   offset,
 }: {
@@ -70,4 +41,4 @@ const Target = ({
   return <Instance ref={ref} position={position} />
 }
 
-export default Targets
+export default TargetInstance

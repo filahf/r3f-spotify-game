@@ -1,13 +1,13 @@
-import BoxComponent from '@/components/canvas/Box'
-import Road from '@/components/canvas/road'
-import Targets from '@/components/canvas/targets'
+import { Road } from '@/components/canvas/road'
+import { Ship } from '@/components/canvas/ship'
+import { Targets } from '@/components/canvas/targets'
 import Overlay from '@/components/dom/overlay'
 
 const Page = () => {
   return (
     <>
       <Overlay />
-      <BoxComponent r3f />
+      <Ship r3f />
       <Road r3f />
       <Targets r3f />
     </>
