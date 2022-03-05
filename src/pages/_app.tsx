@@ -1,5 +1,5 @@
 import Dom from '@/components/layout/dom'
-import Header from '@/config'
+import Header from '@/shared/header-config'
 import useStore from '@/shared/store'
 import theme from '@/shared/theme'
 import partition from '@/utils/partition'

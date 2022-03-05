@@ -19,14 +19,3 @@ declare global {
     }
   }
 }
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      roadShaderMaterial: ReactThreeFiber.Object3DNode<
-        roadShaderMaterial,
-        typeof RoadShaderMaterial
-      >
-    }
-  }
-}
