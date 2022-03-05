@@ -1,4 +1,4 @@
-import { authLog, colorError, colorPass, colorWarning } from '@/utils/chalkLog'
+import { authLog, colorError, colorPass, colorWarning } from '@/utils/chalk-log'
 import NextAuth from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import SpotifyProvider from 'next-auth/providers/spotify'

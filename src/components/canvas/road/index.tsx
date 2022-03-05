@@ -1,5 +1,5 @@
+import useStore from '@/shared/store'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
-import useStore from '@/utils/store'
 import { PerspectiveCamera, Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'

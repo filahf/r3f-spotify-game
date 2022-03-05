@@ -1,6 +1,6 @@
 import useSpotify from '@/hooks/useSpotify'
 import useSpotifyPlayer from '@/hooks/useSpotifyPlayer'
-import useStore from '@/utils/store'
+import useStore from '@/shared/store'
 import { Box, Button, Center, Spinner, Stack } from '@chakra-ui/react'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { useSession } from 'next-auth/react'

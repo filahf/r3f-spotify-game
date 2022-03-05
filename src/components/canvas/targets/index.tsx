@@ -1,6 +1,6 @@
+import useStore from '@/shared/store'
 import { distance } from '@/utils/distance'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
-import useStore from '@/utils/store'
 import { Instance, Instances } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { Suspense, useMemo, useRef } from 'react'

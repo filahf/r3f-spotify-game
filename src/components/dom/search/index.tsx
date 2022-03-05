@@ -1,6 +1,6 @@
 import useDebounce from '@/hooks/useDebounce'
 import useSpotify from '@/hooks/useSpotify'
-import useStore from '@/utils/store'
+import useStore from '@/shared/store'
 import { SearchIcon } from '@chakra-ui/icons'
 import {
   Box,

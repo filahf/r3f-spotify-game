@@ -1,6 +1,6 @@
 import { useControls } from '@/hooks/useControls'
+import useStore from '@/shared/store'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
-import useStore from '@/utils/store'
 import { useSpring } from '@react-spring/three'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
