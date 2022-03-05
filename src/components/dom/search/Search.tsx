@@ -1,6 +1,7 @@
 import useDebounce from '@/hooks/useDebounce'
 import useSpotify from '@/hooks/useSpotify'
 import useStore from '@/shared/store'
+import { AudioData } from '@/types'
 import { SearchIcon } from '@chakra-ui/icons'
 import {
   Box,
@@ -17,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import SearchItem, { SearchItemSkeleton } from './search-item'
+import SearchItem, { SearchItemSkeleton } from './SearchItem'
 
 const Search = () => {
   const [query, setQuery] = useState('')
@@ -59,7 +60,7 @@ const Search = () => {
     useStore.setState({ selectedTrack: selection })
     handleClose()
     spotifyApi.getAudioAnalysisForTrack(selection.id).then((results) => {
-      useStore.setState({ audioAnalysis: results.body })
+      useStore.setState({ audioAnalysis: results.body as AudioData })
     })
   }
 
