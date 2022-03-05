@@ -1,4 +1,4 @@
-import { Preload, Stars } from '@react-three/drei'
+import { Preload } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import {
   Bloom,
@@ -25,7 +25,6 @@ const LCanvas = ({ children }: LCanvasProps) => {
       <Preload all />
       {children}
       <fog attach='fog' color='#D69E2E' near={10} far={210} />
-      {/* <Stars count={100} depth={200} /> */}
       <EffectComposer multisampling={8}>
         <Bloom
           kernelSize={4}
