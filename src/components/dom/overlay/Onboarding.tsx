@@ -6,10 +6,10 @@ import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { useSession } from 'next-auth/react'
 import { useCallback, useEffect } from 'react'
 
-import Search from '../search'
-import UserAvatar from '../user-avatar'
+import { Search } from '../search'
+import { UserAvatar } from '../user-avatar'
 
-export default function Overlay() {
+const Onboarding = () => {
   const { data: session } = useSession()
 
   const player = useStore((s) => s.spotifyWebPlayer)
@@ -77,3 +77,5 @@ export default function Overlay() {
     </Stack>
   )
 }
+
+export default Onboarding
