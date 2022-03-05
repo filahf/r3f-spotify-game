@@ -6,7 +6,7 @@ uniform float uTime;
 varying vec2 vUv;
 
 
-#pragma glslify: getDistortion = require(../../../../shaders/dist.glsl);
+#pragma glslify: getDistortion = require(./dist.glsl);
 
 void main(){
   vec3 transformed = position.xyz;
