@@ -33,8 +33,9 @@ const Ship = () => {
 
   const controls = useControls()
 
-  const [{ x }, api] = useSpring(() => ({
+  const [{ x, rotationZ }, api] = useSpring(() => ({
     x: 0,
+    rotationZ: 0,
     config: { duration: 200 },
   }))
 
@@ -43,15 +44,15 @@ const Ship = () => {
     if (true) {
       if (mesh.current && controls.current) {
         if (controls.current.left) {
-          api({ x: -10 })
+          api({ x: -10, rotationZ: -Math.PI / 8 })
         }
 
         if (controls.current.center) {
-          api({ x: 0 })
+          api({ x: 0, rotationZ: 0 })
         }
 
         if (controls.current.right) {
-          api({ x: 10 })
+          api({ x: 10, rotationZ: Math.PI / 8 })
         }
       }
     }
@@ -63,6 +64,7 @@ const Ship = () => {
 
       mesh.current.position.x = getXDistortion(-15 / -400, time) + x.get()
       mesh.current.position.y = getYDistortion(-15 / -400, time) + 2
+      mesh.current.rotation.z = rotationZ.get()
 
       exhaustLeft.current.scale.x = 0.1 + Math.sin(time * 400) * 0.5
       exhaustLeft.current.scale.y = 0.1 + Math.sin(time * 400) * 0.5
