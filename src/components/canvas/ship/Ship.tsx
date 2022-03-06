@@ -10,19 +10,26 @@ import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
   nodes: {
-    RocketShip_mesh: THREE.Mesh
+    craft_speederC_1: THREE.Mesh
+    craft_speederC_2: THREE.Mesh
+    craft_speederC_3: THREE.Mesh
+    craft_speederC_4: THREE.Mesh
   }
   materials: {
-    RocketShip_mat: THREE.MeshStandardMaterial
+    metalRed: THREE.MeshStandardMaterial
+    metalDark: THREE.MeshStandardMaterial
+    metal: THREE.MeshStandardMaterial
+    dark: THREE.MeshStandardMaterial
   }
 }
 
 const Ship = () => {
-  const exhaust = useRef<THREE.Mesh>(null)
+  const exhaustLeft = useRef<THREE.Mesh>(null)
+  const exhaustRight = useRef<THREE.Mesh>(null)
 
   const mesh = useStore((s) => s.ship)
   const start = useStore((s) => s.startGame)
-  const { nodes, materials } = useGLTF('/Rocket.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/Speeder.glb') as GLTFResult
 
   const controls = useControls()
 
@@ -51,14 +58,16 @@ const Ship = () => {
   })
 
   useFrame(({ clock }) => {
-    if (mesh.current && exhaust.current) {
+    if (mesh.current && exhaustLeft.current && exhaustRight.current) {
       const time = clock.getElapsedTime() * 0.5
 
       mesh.current.position.x = getXDistortion(-15 / -400, time) + x.get()
       mesh.current.position.y = getYDistortion(-15 / -400, time) + 2
 
-      exhaust.current.scale.x = 0.1 + Math.sin(time * 400) * 0.5
-      exhaust.current.scale.y = 0.1 + Math.sin(time * 400) * 0.5
+      exhaustLeft.current.scale.x = 0.1 + Math.sin(time * 400) * 0.5
+      exhaustLeft.current.scale.y = 0.1 + Math.sin(time * 400) * 0.5
+      exhaustRight.current.scale.x = 0.1 + Math.sin(time * 400) * 0.5
+      exhaustRight.current.scale.y = 0.1 + Math.sin(time * 400) * 0.5
     }
   })
 
@@ -70,26 +79,52 @@ const Ship = () => {
         position-y={getYDistortion(15 / 400, 0) + 5}
         position-z={-15}
       >
+        <group scale={20} rotation-y={Math.PI}>
+          <mesh
+            geometry={nodes.craft_speederC_1.geometry}
+            material={materials.metalRed}
+          >
+            <meshPhongMaterial color='#48bb78' />
+          </mesh>
+          <mesh
+            geometry={nodes.craft_speederC_2.geometry}
+            material={materials.metalDark}
+          >
+            <meshPhongMaterial color='#171923' />
+          </mesh>
+          <mesh
+            geometry={nodes.craft_speederC_3.geometry}
+            material={materials.metal}
+          >
+            <meshPhongMaterial color='#171923' />
+          </mesh>
+          <mesh
+            geometry={nodes.craft_speederC_4.geometry}
+            material={materials.dark}
+          />
+        </group>
         <mesh
-          material={materials.RocketShip_mat}
-          geometry={nodes.RocketShip_mesh.geometry}
-          rotation={[-Math.PI / 2, 0, 0]}
-          scale={[0.3, 0.3, 0.3]}
-        />
+          ref={exhaustLeft}
+          scale={[0.3, 0.3, 0.2]}
+          position={[-0.8, 0.5, 2]}
+          rotation={[0, 0, 0]}
+        >
+          <dodecahedronBufferGeometry args={[1.5, 0]} />
+          <meshBasicMaterial color='#FEEBC8' />
+        </mesh>
         <mesh
-          ref={exhaust}
-          scale={[0.3, 0.3, 2]}
-          position={[0, 0, 0]}
+          ref={exhaustRight}
+          scale={[0.3, 0.3, 0.2]}
+          position={[0.8, 0.5, 2]}
           rotation={[0, 0, 0]}
         >
           <dodecahedronBufferGeometry args={[1.5, 0]} />
           <meshBasicMaterial color='#FEEBC8' />
         </mesh>
       </group>
-      <directionalLight position={[5, 5, 5]} castShadow />
     </Suspense>
   )
 }
 export default Ship
 
-useGLTF.preload('/Rocket.glb')
+useGLTF.preload('/Speeder.glb')
