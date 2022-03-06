@@ -15,6 +15,8 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
   const ref = useRef<THREE.InstancedMesh>()
   const start = useStore((s) => s.startGame)
   const ship = useStore((s) => s.ship)
+  const incrementScore = useStore((s) => s.setScore)
+  const resetHitStreak = useStore((s) => s.resetHitStreak)
 
   useFrame((state, delta) => {
     if (ref.current && ship.current) {
@@ -32,9 +34,17 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
       const time = state.clock.getElapsedTime() * 0.5
       const distPos = getDistortion(ref.current.position.z / -400, time)
       ref.current.position.set(...distPos)
+
+      // Hit
       if (distance(ship.current.position, ref.current.position) < 2) {
         ref.current.position.z = 10
-        console.log('hit')
+        incrementScore()
+      }
+
+      // Miss
+      if (ref.current.position.z > -10 && ref.current.position.z < 10) {
+        ref.current.position.z = 10
+        resetHitStreak()
       }
     }
   })

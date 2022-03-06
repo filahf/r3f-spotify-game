@@ -1,7 +1,7 @@
 import { AudioData } from '@/types'
 import { NextRouter } from 'next/router'
 import { createRef, RefObject } from 'react'
-import * as THREE from 'three'
+import { Mesh } from 'three'
 import create from 'zustand'
 
 type StoreType = {
@@ -12,7 +12,11 @@ type StoreType = {
   currentTrack: Spotify.Track | null
   audioAnalysis: AudioData | null
   startGame: boolean
-  ship: RefObject<THREE.Mesh>
+  ship: RefObject<Mesh>
+  hitStreak: number
+  resetHitStreak: () => void
+  score: number
+  setScore: () => void
 }
 
 export const GAME_CONSTANTS = {
@@ -33,6 +37,18 @@ const useStore = create<StoreType>((set, get) => {
     audioAnalysis: null,
     startGame: false,
     ship: createRef(),
+    hitStreak: 0,
+    resetHitStreak: () => set(() => ({ hitStreak: 0 })),
+    score: 0,
+    setScore: () => {
+      const streak = Math.floor(get().hitStreak / 10)
+      const streakMuliplier = streak > 0 ? streak : 1
+
+      return set((state) => ({
+        score: state.score + 10 * streakMuliplier,
+        hitStreak: state.hitStreak + 1,
+      }))
+    },
   }
 })
 
