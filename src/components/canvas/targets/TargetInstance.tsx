@@ -17,7 +17,7 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
   const ship = useStore((s) => s.ship)
 
   useFrame((state, delta) => {
-    if (ref.current && ship.current && start) {
+    if (ref.current && ship.current) {
       const getDistortion = (
         progress: number,
         time: number
@@ -26,7 +26,9 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
         getYDistortion(progress, time) + 2,
         ref.current?.position.z || 0,
       ]
-      ref.current.position.z += delta * 100
+      if (start) {
+        ref.current.position.z += delta * 100
+      }
       const time = state.clock.getElapsedTime() * 0.5
       const distPos = getDistortion(ref.current.position.z / -400, time)
       ref.current.position.set(...distPos)
