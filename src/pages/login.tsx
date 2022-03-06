@@ -1,11 +1,6 @@
 import { Button, Heading, Icon, Stack, Text } from '@chakra-ui/react'
 import { signIn } from 'next-auth/react'
-import dynamic from 'next/dynamic'
 import { BsSpotify } from 'react-icons/bs'
-
-const Box = dynamic(() => import('@/components/canvas/Box'), {
-  ssr: false,
-})
 
 const Login = () => {
   return (
@@ -44,7 +39,6 @@ const Login = () => {
           </Button>
         </Stack>
       </Stack>
-      <Box r3f />
     </>
   )
 }
