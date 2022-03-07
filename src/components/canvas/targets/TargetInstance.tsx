@@ -16,6 +16,7 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
   const start = useStore((s) => s.startGame)
   const ship = useStore((s) => s.ship)
   const incrementScore = useStore((s) => s.setScore)
+  const addExplosion = useStore((s) => s.addExplosion)
   const resetHitStreak = useStore((s) => s.resetHitStreak)
 
   useFrame((state, delta) => {
@@ -37,6 +38,7 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
 
       // Hit
       if (distance(ship.current.position, ref.current.position) < 2) {
+        addExplosion(ref.current.position.x)
         ref.current.position.z = 10
         incrementScore()
       }

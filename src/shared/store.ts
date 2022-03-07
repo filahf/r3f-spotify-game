@@ -18,6 +18,13 @@ type StoreType = {
   resetHitStreak: () => void
   score: number
   setScore: () => void
+  explosions: Explosion[]
+  addExplosion: (positionX: number) => void
+}
+
+type Explosion = {
+  positionX: number
+  ts: number
 }
 
 export const GAME_CONSTANTS = {
@@ -25,6 +32,7 @@ export const GAME_CONSTANTS = {
 }
 
 const useStore = create<StoreType>((set, get) => {
+  let cancelExplosionTO: NodeJS.Timeout | undefined = undefined
   return {
     set,
     get,
@@ -42,15 +50,35 @@ const useStore = create<StoreType>((set, get) => {
     streakMultiplier: 1,
     resetHitStreak: () => set(() => ({ hitStreak: 0 })),
     score: 0,
+    explosions: [],
     setScore: () => {
       const streak = Math.floor(get().hitStreak / 10)
       const streakMuliplier = streak > 0 ? streak : 1
 
-      return set((state) => ({
+      set((state) => ({
         score: state.score + 10 * streakMuliplier,
         hitStreak: state.hitStreak + 1,
         streakMultiplier: streakMuliplier,
       }))
+    },
+    addExplosion: (positionX: number) => {
+      set((state) => ({
+        explosions: [
+          ...state.explosions,
+          { positionX: positionX, ts: Date.now() },
+        ],
+      }))
+
+      cancelExplosionTO && clearTimeout(cancelExplosionTO)
+      cancelExplosionTO = setTimeout(
+        () =>
+          set((state) => ({
+            explosions: state.explosions.filter(
+              ({ ts }) => Date.now() - ts <= 700
+            ),
+          })),
+        700
+      )
     },
   }
 })

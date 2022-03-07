@@ -8,6 +8,8 @@ import {
 } from '@react-three/postprocessing'
 import { CSSProperties } from 'react'
 
+import Explosions from '../canvas/explosion/Explosion'
+
 type LCanvasProps = {
   children: JSX.Element
 }
@@ -25,6 +27,7 @@ const LCanvas = ({ children }: LCanvasProps) => {
       <Preload all />
       {children}
       <fog attach='fog' color='#D69E2E' near={10} far={210} />
+      <Explosions />
       <EffectComposer multisampling={8}>
         <Bloom
           kernelSize={4}

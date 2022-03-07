@@ -10,22 +10,20 @@ type DomType = {
 const Dom = ({ children }: DomType) => {
   const { data: session } = useSession()
   return (
-    <Container>
+    <Container
+      maxW={'5xl'}
+      zIndex={10}
+      userSelect={'none'}
+      position={'absolute'}
+      left={0}
+      right={0}
+      overflow={'hidden'}
+      mx={'auto'}
+    >
       {session && session.user.name && (
         <UserAvatar name={session.user.name} imgSrc={session.user.image} />
       )}
-      <Container
-        maxW={'5xl'}
-        zIndex={10}
-        userSelect={'none'}
-        position={'absolute'}
-        left={0}
-        right={0}
-        overflow={'hidden'}
-        mx={'auto'}
-      >
-        {children}
-      </Container>
+      {children}
     </Container>
   )
 }
