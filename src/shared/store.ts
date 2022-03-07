@@ -20,6 +20,7 @@ type StoreType = {
   setScore: () => void
   explosions: Explosion[]
   addExplosion: (positionX: number) => void
+  resetGame: () => void
 }
 
 type Explosion = {
@@ -27,8 +28,13 @@ type Explosion = {
   ts: number
 }
 
-export const GAME_CONSTANTS = {
-  laneWidth: 20,
+const newGameState = {
+  score: 0,
+  selectedTrack: null,
+  hitStreak: 0,
+  streakMultiplier: 1,
+  startGame: false,
+  audioAnalysis: null,
 }
 
 const useStore = create<StoreType>((set, get) => {
@@ -36,21 +42,17 @@ const useStore = create<StoreType>((set, get) => {
   return {
     set,
     get,
+    ...newGameState,
     router: null,
-    isPlaying: false,
     connected: false,
-    selectedTrack: null,
     spotifyWebPlayer: null,
     currentTrack: null,
     deviceId: null,
-    audioAnalysis: null,
-    startGame: false,
-    ship: createRef(),
-    hitStreak: 0,
-    streakMultiplier: 1,
-    resetHitStreak: () => set(() => ({ hitStreak: 0 })),
-    score: 0,
     explosions: [],
+    ship: createRef(),
+
+    resetHitStreak: () => set(() => ({ hitStreak: 0 })),
+
     setScore: () => {
       const streak = Math.floor(get().hitStreak / 10)
       const streakMuliplier = streak > 0 ? streak : 1
@@ -61,6 +63,7 @@ const useStore = create<StoreType>((set, get) => {
         streakMultiplier: streakMuliplier,
       }))
     },
+
     addExplosion: (positionX: number) => {
       set((state) => ({
         explosions: [
@@ -80,6 +83,7 @@ const useStore = create<StoreType>((set, get) => {
         700
       )
     },
+    resetGame: () => set(() => ({ ...newGameState })),
   }
 })
 
