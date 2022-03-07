@@ -14,7 +14,7 @@ const UserAvatar = ({ name, imgSrc }: UserAvatarProps) => {
       top={0}
       px={3}
       py={2}
-      m={2}
+      mt={3}
       rounded='2xl'
       display='flex'
       color='white'
