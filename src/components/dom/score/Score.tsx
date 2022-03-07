@@ -23,7 +23,7 @@ const Score = () => {
 
   return (
     <>
-      <VStack>
+      <VStack mt={10}>
         <Text>SCORE</Text>
         <Text textStyle='score' mb={0} pb={0} ref={ref}>
           {score}

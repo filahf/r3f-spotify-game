@@ -1,4 +1,3 @@
-import useStore from '@/shared/store'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import { PerspectiveCamera, Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
@@ -10,7 +9,6 @@ import RoadShaderMaterial, { RoadShaderMaterialImpl } from './shader'
 extend({ RoadShaderMaterial })
 
 const Road = () => {
-  const start = useStore((s) => s.startGame)
   const ref = useRef<RoadShaderMaterialImpl>()
   const cameraRef = useRef<THREE.Camera>()
 

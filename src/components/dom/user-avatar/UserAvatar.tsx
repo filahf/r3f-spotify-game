@@ -19,12 +19,11 @@ const UserAvatar = ({ name, imgSrc }: UserAvatarProps) => {
       display='flex'
       color='white'
       cursor={'pointer'}
-      minW={0}
       onClick={() => signOut()}
     >
       <HStack spacing={2}>
         <Avatar size={'sm'} name={name} src={imgSrc || undefined} />
-        <Text fontSize='sm'>Sign Out</Text>
+        <Text>Sign Out</Text>
       </HStack>
     </Box>
   )
