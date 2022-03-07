@@ -13,6 +13,13 @@ const theme = extendTheme({
   components: {
     Steps,
   },
+  styles: {
+    global: () => ({
+      body: {
+        bg: 'black',
+      },
+    }),
+  },
   textStyles: {
     score: {
       fontSize: ['72px', '72px'],
