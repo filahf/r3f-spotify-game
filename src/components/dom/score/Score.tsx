@@ -1,13 +1,15 @@
 // https://github.com/pmndrs/racing-game/blob/main/src/ui/Speed/Text.tsx
 
 import useStore from '@/shared/store'
+import { Text, VStack } from '@chakra-ui/react'
 import { addEffect } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 
 const Score = () => {
-  const ref = useRef<HTMLSpanElement>(null)
+  const ref = useRef<HTMLParagraphElement>(null)
 
   const score = useStore((s) => s.score)
+  const streakMultiplier = useStore((s) => s.streakMultiplier)
 
   useEffect(() =>
     addEffect(() => {
@@ -18,9 +20,18 @@ const Score = () => {
       }
     })
   )
+
   return (
     <>
-      <span ref={ref}>{score}</span>
+      <VStack>
+        <Text>SCORE</Text>
+        <Text textStyle='score' mb={0} pb={0} ref={ref}>
+          {score}
+        </Text>
+        <Text mt={0} fontWeight='bold'>
+          {streakMultiplier}x
+        </Text>
+      </VStack>
     </>
   )
 }

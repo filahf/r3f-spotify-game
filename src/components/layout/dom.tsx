@@ -1,10 +1,14 @@
 import { Container } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
+
+import { UserAvatar } from '../dom/user-avatar'
 
 type DomType = {
   children: JSX.Element
 }
 
 const Dom = ({ children }: DomType) => {
+  const { data: session } = useSession()
   return (
     <Container
       className='dom'
@@ -17,6 +21,9 @@ const Dom = ({ children }: DomType) => {
       overflow={'hidden'}
       mx={'auto'}
     >
+      {session && session.user.name && (
+        <UserAvatar name={session.user.name} imgSrc={session.user.image} />
+      )}
       {children}
     </Container>
   )

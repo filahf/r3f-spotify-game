@@ -13,6 +13,13 @@ const theme = extendTheme({
   components: {
     Steps,
   },
+  textStyles: {
+    score: {
+      fontSize: ['72px', '72px'],
+      fontWeight: 'bold',
+      lineHeight: '100%',
+    },
+  },
 })
 
 export default theme

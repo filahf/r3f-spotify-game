@@ -14,6 +14,7 @@ type StoreType = {
   startGame: boolean
   ship: RefObject<Mesh>
   hitStreak: number
+  streakMultiplier: number
   resetHitStreak: () => void
   score: number
   setScore: () => void
@@ -38,6 +39,7 @@ const useStore = create<StoreType>((set, get) => {
     startGame: false,
     ship: createRef(),
     hitStreak: 0,
+    streakMultiplier: 1,
     resetHitStreak: () => set(() => ({ hitStreak: 0 })),
     score: 0,
     setScore: () => {
@@ -47,6 +49,7 @@ const useStore = create<StoreType>((set, get) => {
       return set((state) => ({
         score: state.score + 10 * streakMuliplier,
         hitStreak: state.hitStreak + 1,
+        streakMultiplier: streakMuliplier,
       }))
     },
   }

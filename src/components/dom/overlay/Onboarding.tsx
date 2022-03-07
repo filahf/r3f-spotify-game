@@ -6,9 +6,7 @@ import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { useSession } from 'next-auth/react'
 import { useCallback, useEffect } from 'react'
 
-import { Score } from '../score'
 import { Search } from '../search'
-import { UserAvatar } from '../user-avatar'
 
 const Onboarding = () => {
   const { data: session } = useSession()
@@ -48,9 +46,6 @@ const Onboarding = () => {
 
   return (
     <Stack textAlign={'center'} py={4}>
-      {session && session.user.name && (
-        <UserAvatar name={session.user.name} imgSrc={session.user.image} />
-      )}
       <Box>
         {player && (
           <Center>
@@ -75,7 +70,6 @@ const Onboarding = () => {
           {activeStep === 3 && <Button onClick={handleOnStart}>START</Button>}
         </Box>
       </Box>
-      <Score />
     </Stack>
   )
 }

@@ -1,12 +1,19 @@
 import { Road } from '@/components/canvas/road'
 import { Ship } from '@/components/canvas/ship'
 import { Targets } from '@/components/canvas/targets'
-import { Onboarding } from '@/components/dom/overlay'
+import { InGame, Onboarding } from '@/components/dom/overlay'
+import useStore from '@/shared/store'
+
+const DomElements = () => {
+  const inGame = useStore((s) => s.startGame)
+
+  return inGame ? <InGame /> : <Onboarding />
+}
 
 const Page = () => {
   return (
     <>
-      <Onboarding />
+      <DomElements />
       <Ship r3f />
       <Road r3f />
       <Targets r3f />
