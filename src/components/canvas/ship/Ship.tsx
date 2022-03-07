@@ -41,7 +41,7 @@ const Ship = () => {
 
   // Controls
   useFrame(() => {
-    if (true) {
+    if (start) {
       if (mesh.current && controls.current) {
         if (controls.current.left) {
           api({ x: -10, rotationZ: -Math.PI / 8 })
