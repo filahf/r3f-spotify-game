@@ -1,5 +1,5 @@
 import { Road } from '@/components/canvas/road'
-import { Ship } from '@/components/canvas/ship'
+import { GameShip } from '@/components/canvas/ship'
 import { Targets } from '@/components/canvas/targets'
 import { InGame, Onboarding } from '@/components/dom/overlay'
 import useStore from '@/shared/store'
@@ -14,7 +14,7 @@ const Page = () => {
   return (
     <>
       <DomElements />
-      <Ship r3f />
+      <GameShip r3f />
       <Road r3f />
       <Targets r3f />
     </>

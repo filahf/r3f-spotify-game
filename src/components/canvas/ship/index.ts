@@ -1,1 +1,2 @@
-export { default as Ship } from './Ship'
+export { default as ShipModel } from './ShipModel'
+export { default as GameShip } from './GameShip'
