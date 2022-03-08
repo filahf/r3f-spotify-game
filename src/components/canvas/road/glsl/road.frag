@@ -11,7 +11,7 @@ uniform float uBrokenLinesLengthPercentage;
 void main(){
   vec2 uv = vUv;
   vec3 color = vec3(uColor);
-  uv.y = mod(uv.y + uTime * 0.15,1.);
+  uv.y = mod(uv.y + uTime * 0.1,1.);
   float brokenLineWidth = 1. / uLanes * uBrokenLinesWidthPercentage;
   // How much % of the lane's space is empty
   float laneEmptySpace = 1. - uBrokenLinesLengthPercentage;

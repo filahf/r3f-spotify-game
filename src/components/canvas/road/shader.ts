@@ -1,3 +1,4 @@
+import { ROAD_LENGTH } from '@/shared/constants'
 import { uAmp, uFreq } from '@/utils/distortion'
 import { shaderMaterial } from '@react-three/drei'
 import * as THREE from 'three'
@@ -22,7 +23,7 @@ export type RoadShaderMaterialImpl = {
 const RoadShaderMaterial = shaderMaterial(
   {
     uColor: new THREE.Color('black'),
-    uTravelLength: 400,
+    uTravelLength: ROAD_LENGTH,
     uTime: 0,
     uFreq: uFreq,
     uAmp: uAmp,

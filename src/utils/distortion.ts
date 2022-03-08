@@ -5,9 +5,9 @@ export const uAmp = new THREE.Vector2(5, 5)
 export const camProgress = 0.0125
 
 export const getXDistortion = (progress: number, time: number): number =>
-  Math.sin(progress * Math.PI * uFreq.x + time) * uAmp.x -
-  Math.sin(camProgress * Math.PI * uFreq.x + time) * uAmp.x
+  Math.sin(progress * Math.PI * uFreq.x + time * 0.5) * uAmp.x -
+  Math.sin(camProgress * Math.PI * uFreq.x + time * 0.5) * uAmp.x
 
 export const getYDistortion = (progress: number, time: number): number =>
-  Math.sin(progress * Math.PI * uFreq.y + time) * uAmp.y -
-  Math.sin(camProgress * Math.PI * uFreq.y + time) * uAmp.y
+  Math.sin(progress * Math.PI * uFreq.y + time * 0.5) * uAmp.y -
+  Math.sin(camProgress * Math.PI * uFreq.y + time * 0.5) * uAmp.y
