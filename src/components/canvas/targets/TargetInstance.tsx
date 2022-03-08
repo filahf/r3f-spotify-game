@@ -1,3 +1,4 @@
+import { ROAD_LENGTH } from '@/shared/constants'
 import useStore from '@/shared/store'
 import { distance } from '@/utils/distance'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
@@ -32,8 +33,9 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
       if (start) {
         ref.current.position.z += delta * 100
       }
-      const time = state.clock.getElapsedTime() * 0.5
-      const distPos = getDistortion(ref.current.position.z / -400, time)
+
+      const time = state.clock.getElapsedTime()
+      const distPos = getDistortion(ref.current.position.z / -ROAD_LENGTH, time)
       ref.current.position.set(...distPos)
 
       // Hit

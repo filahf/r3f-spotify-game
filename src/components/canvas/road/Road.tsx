@@ -1,7 +1,8 @@
+import { ROAD_LENGTH } from '@/shared/constants'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import { PerspectiveCamera, Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
 import RoadShaderMaterial, { RoadShaderMaterialImpl } from './shader'
@@ -10,19 +11,20 @@ extend({ RoadShaderMaterial })
 
 const Road = () => {
   const ref = useRef<RoadShaderMaterialImpl>()
+
   const cameraRef = useRef<THREE.Camera>()
 
-  const lookAtAmp = new THREE.Vector3(1, 1, 0)
-  const lookAtOffset = new THREE.Vector3(0, 0, -5)
+  // https://docs.pmnd.rs/react-three-fiber/advanced/pitfalls#tips-and-tricks
+  const lookAtAmp = useMemo(() => new THREE.Vector3(1, 1, 0), [])
+  const lookAtOffset = useMemo(() => new THREE.Vector3(0, 0, -5), [])
 
-  const lookAtTemp = new THREE.Vector3(0, 0, 0)
-  const lookAt = new THREE.Vector3()
+  const lookAtTemp = useMemo(() => new THREE.Vector3(0, 0, 0), [])
+  const lookAt = useMemo(() => new THREE.Vector3(), [])
 
   useFrame(({ clock }) => {
     if (ref.current && cameraRef.current) {
       const progress = 0.025
-
-      const time = clock.getElapsedTime() * 0.5
+      const time = clock.getElapsedTime()
 
       ref.current.uTime = time
       lookAtTemp.x = getXDistortion(progress, time)
@@ -50,15 +52,15 @@ const Road = () => {
       <PerspectiveCamera
         fov={100}
         near={0.5}
-        far={400}
+        far={ROAD_LENGTH}
         ref={cameraRef}
         position={[0, 8, -5]}
         makeDefault
       />
       <Plane
-        args={[30, 400, 20, 100]}
+        args={[30, ROAD_LENGTH, 20, 100]}
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, 0, -200]}
+        position={[0, 0, -ROAD_LENGTH / 2]}
         receiveShadow
       >
         <roadShaderMaterial ref={ref} side={THREE.DoubleSide} />

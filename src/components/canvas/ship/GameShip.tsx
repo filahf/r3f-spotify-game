@@ -1,4 +1,5 @@
 import { useControls } from '@/hooks/useControls'
+import { ROAD_LENGTH, SHIP_Z_OFFSET } from '@/shared/constants'
 import useStore from '@/shared/store'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import { useSpring } from '@react-spring/three'
@@ -43,16 +44,20 @@ const GameShip = () => {
 
   useFrame(({ clock }) => {
     if (mesh.current && exhaustLeft.current && exhaustRight.current) {
-      const time = clock.getElapsedTime() * 0.5
+      const time = clock.getElapsedTime()
 
-      mesh.current.position.x = getXDistortion(-15 / -400, time) + x.get()
-      mesh.current.position.y = getYDistortion(-15 / -400, time) + 2
+      mesh.current.position.x =
+        getXDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + x.get()
+      mesh.current.position.y =
+        getYDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + 2
       mesh.current.rotation.z = rotationZ.get()
 
-      exhaustLeft.current.scale.x = 0.1 + Math.sin(time * 400) * 0.5
-      exhaustLeft.current.scale.y = 0.1 + Math.sin(time * 400) * 0.5
-      exhaustRight.current.scale.x = 0.1 + Math.sin(time * 400) * 0.5
-      exhaustRight.current.scale.y = 0.1 + Math.sin(time * 400) * 0.5
+      const exhaustScale = start ? 0.5 : 0.05
+
+      exhaustLeft.current.scale.x = 0.1 + Math.sin(time * 400) * exhaustScale
+      exhaustLeft.current.scale.y = 0.1 + Math.sin(time * 400) * exhaustScale
+      exhaustRight.current.scale.x = 0.1 + Math.sin(time * 400) * exhaustScale
+      exhaustRight.current.scale.y = 0.1 + Math.sin(time * 400) * exhaustScale
     }
   })
 
@@ -63,9 +68,9 @@ const GameShip = () => {
         exhaustLeftRef={exhaustLeft}
         exhaustRightRef={exhaustRight}
         position={[
-          getXDistortion(15 / 400, 0),
-          getYDistortion(15 / 400, 0) + 5,
-          -15,
+          getXDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, 0),
+          getYDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, 0) + 5,
+          -SHIP_Z_OFFSET,
         ]}
       />
     </>

@@ -1,3 +1,4 @@
+import { ROAD_LENGTH } from '@/shared/constants'
 import useStore from '@/shared/store'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import { Instances } from '@react-three/drei'
@@ -22,9 +23,9 @@ const Targets = () => {
             const zPosition = data.start * -100
             const offset = i % 3 ? (Math.floor(Math.random() * 3) - 1) * 10 : 0
             const position: THREE.Vector3Tuple = [
-              getXDistortion(zPosition / -400, 0) +
+              getXDistortion(zPosition / -ROAD_LENGTH, 0) +
                 (Math.floor(Math.random() * 3) - 1) * 3,
-              getYDistortion(zPosition / -400, 0),
+              getYDistortion(zPosition / -ROAD_LENGTH, 0),
               zPosition,
             ]
             return (
