@@ -1,8 +1,19 @@
-import { Road } from '@/components/canvas/road'
-import { GameShip } from '@/components/canvas/ship'
-import { Targets } from '@/components/canvas/targets'
 import { InGame, Onboarding } from '@/components/dom/overlay'
 import useStore from '@/shared/store'
+import dynamic from 'next/dynamic'
+
+const Road = dynamic<Record<string, unknown>>(
+  () => import('@/components/canvas/road').then((module) => module.Road),
+  { ssr: false }
+)
+const GameShip = dynamic<Record<string, unknown>>(
+  () => import('@/components/canvas/ship').then((module) => module.GameShip),
+  { ssr: false }
+)
+const Targets = dynamic<Record<string, unknown>>(
+  () => import('@/components/canvas/targets').then((module) => module.Targets),
+  { ssr: false }
+)
 
 const DomElements = () => {
   const inGame = useStore((s) => s.startGame)
