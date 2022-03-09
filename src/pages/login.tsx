@@ -1,4 +1,4 @@
-import { Landing } from '@/components/dom/overlay'
+import { Landing } from '@/views/dom'
 import dynamic from 'next/dynamic'
 
 const LandingShip = dynamic<Record<string, unknown>>(

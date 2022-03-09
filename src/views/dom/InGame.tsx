@@ -1,7 +1,7 @@
 import { Box, Stack } from '@chakra-ui/react'
 
-import { ResetButton } from '../reset-button'
-import { Score } from '../score'
+import { ResetButton } from '../../components/dom/reset-button'
+import { Score } from '../../components/dom/score'
 
 const InGame = () => {
   return (

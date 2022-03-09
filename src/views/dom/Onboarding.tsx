@@ -6,7 +6,7 @@ import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { useSession } from 'next-auth/react'
 import { useCallback, useEffect } from 'react'
 
-import { Search } from '../search'
+import { Search } from '../../components/dom/search'
 
 const Onboarding = () => {
   const { data: session } = useSession()

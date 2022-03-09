@@ -1,5 +1,5 @@
-import { InGame, Onboarding } from '@/components/dom/overlay'
 import useStore from '@/shared/store'
+import { InGame, Onboarding } from '@/views/dom'
 import dynamic from 'next/dynamic'
 
 const Road = dynamic<Record<string, unknown>>(
