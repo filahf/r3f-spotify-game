@@ -1,7 +1,7 @@
 import { ROAD_LENGTH } from '@/shared/constants'
 import useStore from '@/shared/store'
 import { distance } from '@/utils/distance'
-import { getXDistortion, getYDistortion } from '@/utils/distortion'
+import { getDistVector3Tuple } from '@/utils/distortion'
 import { Instance } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
@@ -22,19 +22,16 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
 
   useFrame((state, delta) => {
     if (ref.current && ship.current) {
-      const getDistortion = (
-        progress: number,
-        time: number
-      ): THREE.Vector3Tuple => [
-        getXDistortion(progress, time) + offset,
-        getYDistortion(progress, time) + 2,
-        ref.current?.position.z || 0,
-      ]
       if (start) {
         ref.current.position.z += delta * 100
       }
       const time = state.clock.getElapsedTime()
-      const distPos = getDistortion(ref.current.position.z / -ROAD_LENGTH, time)
+      const distPos = getDistVector3Tuple(
+        ref.current.position.z / -ROAD_LENGTH,
+        time,
+        ref.current.position.z,
+        [offset, 2, 0]
+      )
       ref.current.position.set(...distPos)
 
       // Hit
