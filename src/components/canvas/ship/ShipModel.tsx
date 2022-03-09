@@ -64,7 +64,7 @@ const Ship = ({
         <mesh
           ref={exhaustLeftRef}
           scale={[0.3, 0.3, 0.2]}
-          position={[-0.8, 0.7, 2]}
+          position={[-0.8, 0.7, 2.5]}
           rotation={[0, 0, 0]}
         >
           <dodecahedronBufferGeometry args={[1.5, 0]} />
@@ -73,7 +73,7 @@ const Ship = ({
         <mesh
           ref={exhaustRightRef}
           scale={[0.3, 0.3, 0.2]}
-          position={[0.8, 0.7, 2]}
+          position={[0.8, 0.7, 2.5]}
           rotation={[0, 0, 0]}
         >
           <dodecahedronBufferGeometry args={[1.5, 0]} />
