@@ -1,8 +1,8 @@
 import { Landing } from '@/views/dom'
 import dynamic from 'next/dynamic'
 
-const LandingShip = dynamic<Record<string, unknown>>(
-  () => import('@/components/canvas/ship').then((module) => module.LandingShip),
+const LandingPageCanvas = dynamic<Record<string, unknown>>(
+  () => import('@/views/canvas/').then((module) => module.LandingPageCanvas),
   { ssr: false }
 )
 
@@ -10,7 +10,7 @@ const Page = () => {
   return (
     <>
       <Landing />
-      <LandingShip r3f />
+      <LandingPageCanvas r3f />
     </>
   )
 }

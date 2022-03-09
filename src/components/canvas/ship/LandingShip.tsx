@@ -1,4 +1,3 @@
-import { PerspectiveCamera } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
@@ -10,7 +9,6 @@ const LandingShip = () => {
   const exhaustRight = useRef<THREE.Mesh>(null)
 
   const mesh = useRef<THREE.Mesh>(null)
-  const camera = useRef<THREE.Camera>()
 
   useFrame(({ clock }) => {
     if (mesh.current && exhaustLeft.current && exhaustRight.current) {
@@ -24,16 +22,6 @@ const LandingShip = () => {
 
   return (
     <>
-      <PerspectiveCamera
-        ref={camera}
-        makeDefault
-        position={[0, 20, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      >
-        <pointLight intensity={1} position={[-10, 25, -10]} />
-      </PerspectiveCamera>
-
-      <ambientLight intensity={0.3} />
       <ShipModel
         meshRef={mesh}
         exhaustLeftRef={exhaustLeft}
