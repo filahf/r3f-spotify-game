@@ -2,16 +2,8 @@ import useStore from '@/shared/store'
 import { InGame, Onboarding } from '@/views/dom'
 import dynamic from 'next/dynamic'
 
-const Road = dynamic<Record<string, unknown>>(
-  () => import('@/components/canvas/road').then((module) => module.Road),
-  { ssr: false }
-)
-const GameShip = dynamic<Record<string, unknown>>(
-  () => import('@/components/canvas/ship').then((module) => module.GameShip),
-  { ssr: false }
-)
-const Targets = dynamic<Record<string, unknown>>(
-  () => import('@/components/canvas/targets').then((module) => module.Targets),
+const GameCanvas = dynamic<Record<string, unknown>>(
+  () => import('@/views/canvas').then((module) => module.GameCanvas),
   { ssr: false }
 )
 
@@ -25,9 +17,7 @@ const Page = () => {
   return (
     <>
       <DomElements />
-      <GameShip r3f />
-      <Road r3f />
-      <Targets r3f />
+      <GameCanvas r3f />
     </>
   )
 }
