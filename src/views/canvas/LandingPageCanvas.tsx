@@ -1,5 +1,6 @@
+import { Effects } from '@/components/canvas/effects'
 import { LandingShip } from '@/components/canvas/ship'
-import { PerspectiveCamera } from '@react-three/drei'
+import { Float, PerspectiveCamera, Stars } from '@react-three/drei'
 
 const LandingPageCanvas = () => {
   return (
@@ -12,7 +13,11 @@ const LandingPageCanvas = () => {
         <pointLight intensity={1} position={[-10, 25, -10]} />
       </PerspectiveCamera>
       <ambientLight intensity={0.3} />
-      <LandingShip />
+      <Float>
+        <LandingShip />
+      </Float>
+      <Stars radius={120} count={600} />
+      <Effects />
     </>
   )
 }

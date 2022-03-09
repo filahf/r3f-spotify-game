@@ -26,7 +26,6 @@ const LandingShip = () => {
         meshRef={mesh}
         exhaustLeftRef={exhaustLeft}
         exhaustRightRef={exhaustRight}
-        position={[0, 0, 0]}
         rotation={[-Math.PI / 4, -Math.PI / 3, 0]}
       />
     </>
