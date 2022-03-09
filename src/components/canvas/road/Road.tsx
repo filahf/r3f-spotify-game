@@ -17,8 +17,8 @@ const Road = () => {
     if (ref.current) {
       const time = clock.getElapsedTime()
 
+      ref.current.uTime = time
       if (start) {
-        ref.current.uTime = time
         ref.current.uFragmentTime = time
       }
     }

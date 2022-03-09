@@ -46,13 +46,12 @@ const GameShip = () => {
     if (mesh.current && exhaustLeft.current && exhaustRight.current) {
       const time = clock.getElapsedTime()
 
+      mesh.current.position.x =
+        getXDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + x.get()
+      mesh.current.position.y =
+        getYDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + 2
+      mesh.current.rotation.z = rotationZ.get()
       if (start) {
-        mesh.current.position.x =
-          getXDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + x.get()
-        mesh.current.position.y =
-          getYDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + 2
-        mesh.current.rotation.z = rotationZ.get()
-
         exhaustLeft.current.scale.x = 0.2 + Math.sin(time * 300) * 0.01
         exhaustLeft.current.scale.z = 1 + Math.sin(time * 400) * 0.5
         exhaustRight.current.scale.x = 0.2 + Math.sin(time * 300) * 0.01
