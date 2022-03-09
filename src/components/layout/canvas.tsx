@@ -1,12 +1,6 @@
 import useStore from '@/shared/store'
 import { Preload, Stars } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import {
-  Bloom,
-  EffectComposer,
-  Noise,
-  Vignette,
-} from '@react-three/postprocessing'
 import { CSSProperties, Suspense } from 'react'
 
 import { CoverArt } from '../canvas/cover-art'
@@ -38,16 +32,6 @@ const LCanvas = ({ children }: LCanvasProps) => {
         )}
       </Suspense>
       <Stars radius={120} count={600} />
-      <EffectComposer multisampling={8}>
-        <Bloom
-          kernelSize={4}
-          luminanceThreshold={0.3}
-          luminanceSmoothing={0.3}
-          intensity={0.2}
-        />
-        <Noise opacity={0.02} />
-        <Vignette eskil={false} offset={0.1} darkness={1.1} />
-      </EffectComposer>
     </Canvas>
   )
 }
