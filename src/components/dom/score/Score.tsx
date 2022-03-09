@@ -2,7 +2,6 @@
 
 import useStore from '@/shared/store'
 import { Text, VStack } from '@chakra-ui/react'
-import { addEffect } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 
 const Score = () => {
@@ -11,15 +10,13 @@ const Score = () => {
   const score = useStore((s) => s.score)
   const streakMultiplier = useStore((s) => s.streakMultiplier)
 
-  useEffect(() =>
-    addEffect(() => {
-      if (!ref.current) return
+  useEffect(() => {
+    if (!ref.current) return
 
-      if (ref.current.innerText !== score.toString()) {
-        ref.current.innerText = score.toString()
-      }
-    })
-  )
+    if (ref.current.innerText !== score.toString()) {
+      ref.current.innerText = score.toString()
+    }
+  })
 
   return (
     <>
