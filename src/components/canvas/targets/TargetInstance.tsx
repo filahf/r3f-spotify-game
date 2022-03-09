@@ -32,11 +32,14 @@ const TargetInstance = ({ position, offset }: TargetInstanceProps) => {
       ]
       if (start) {
         ref.current.position.z += delta * 100
-      }
 
-      const time = state.clock.getElapsedTime()
-      const distPos = getDistortion(ref.current.position.z / -ROAD_LENGTH, time)
-      ref.current.position.set(...distPos)
+        const time = state.clock.getElapsedTime()
+        const distPos = getDistortion(
+          ref.current.position.z / -ROAD_LENGTH,
+          time
+        )
+        ref.current.position.set(...distPos)
+      }
 
       // Hit
       if (distance(ship.current.position, ref.current.position) < 2) {

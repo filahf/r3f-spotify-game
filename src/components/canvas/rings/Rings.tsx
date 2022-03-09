@@ -7,13 +7,13 @@ import * as THREE from 'three'
 import RingInstance from './RingInstance'
 
 const Rings = () => {
-  const ringsArray = useMemo(() => new Array(4).fill(null), [])
+  const ringsArray = useMemo(() => new Array(5).fill(null), [])
 
   return (
     <>
       <Instances limit={ringsArray.length}>
-        <ringBufferGeometry args={[1, 1.01, 64]} />
-        <meshBasicMaterial color='lightgreen' side={THREE.DoubleSide} />
+        <ringBufferGeometry args={[1, 1.02, 64]} />
+        <meshBasicMaterial color='#D6BCFA' side={THREE.DoubleSide} />
 
         {ringsArray.map((_, i) => {
           const zPosition = i * -50
@@ -23,7 +23,7 @@ const Rings = () => {
             zPosition,
           ]
           const scale = (Math.sin(i / 10) * Math.PI) / 4
-          return <RingInstance key={i} position={pos} scale={scale * 7 + 20} />
+          return <RingInstance key={i} position={pos} scale={scale * 17 + 20} />
         })}
       </Instances>
     </>

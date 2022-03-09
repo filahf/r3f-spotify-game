@@ -28,13 +28,12 @@ const RingInstance = ({ position, scale }: RingInstanceProps) => {
 
       if (start) {
         ref.current.position.z += delta * 100
+        const distPos = getDistortionPos(
+          ref.current.position.z / -ROAD_LENGTH,
+          time
+        )
+        ref.current.position.set(...distPos)
       }
-
-      const distPos = getDistortionPos(
-        ref.current.position.z / -ROAD_LENGTH,
-        time
-      )
-      ref.current.position.set(...distPos)
       if (ref.current.position.z > 0) {
         ref.current.position.z = -ROAD_LENGTH
       }

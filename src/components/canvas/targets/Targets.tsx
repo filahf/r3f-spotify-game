@@ -25,7 +25,7 @@ const Targets = () => {
             const position: THREE.Vector3Tuple = [
               getXDistortion(zPosition / -ROAD_LENGTH, 0) +
                 (Math.floor(Math.random() * 3) - 1) * 3,
-              getYDistortion(zPosition / -ROAD_LENGTH, 0),
+              getYDistortion(zPosition / -ROAD_LENGTH, 0) + 2,
               zPosition,
             ]
             return (

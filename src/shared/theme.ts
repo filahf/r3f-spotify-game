@@ -22,7 +22,7 @@ const theme = extendTheme({
   },
   textStyles: {
     score: {
-      fontSize: ['72px', '72px'],
+      fontSize: ['100px'],
       fontWeight: 'bold',
       lineHeight: '100%',
     },
