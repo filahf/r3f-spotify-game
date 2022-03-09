@@ -1,3 +1,4 @@
+import { Search } from '@/components/dom/search'
 import useSpotify from '@/hooks/useSpotify'
 import useSpotifyPlayer from '@/hooks/useSpotifyPlayer'
 import useStore from '@/shared/store'
@@ -5,8 +6,6 @@ import { Box, Button, Center, Spinner, Stack } from '@chakra-ui/react'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { useSession } from 'next-auth/react'
 import { useCallback, useEffect } from 'react'
-
-import { Search } from '../../components/dom/search'
 
 const Onboarding = () => {
   const { data: session } = useSession()
@@ -41,6 +40,8 @@ const Onboarding = () => {
       setStep(3)
     } else if (connected) {
       setStep(1)
+    } else {
+      setStep(0)
     }
   }, [connected, selectedTrack, setStep])
 
