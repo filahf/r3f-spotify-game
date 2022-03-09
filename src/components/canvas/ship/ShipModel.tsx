@@ -22,20 +22,21 @@ type ShipModelProps = {
   meshRef: RefObject<THREE.Mesh>
   exhaustLeftRef: RefObject<THREE.Mesh>
   exhaustRightRef: RefObject<THREE.Mesh>
-  position: THREE.Vector3Tuple
+  rotation?: THREE.Vector3Tuple
+  position?: THREE.Vector3Tuple
 }
 
 const Ship = ({
   meshRef,
   exhaustLeftRef,
   exhaustRightRef,
-  position,
+  ...props
 }: ShipModelProps) => {
   const { nodes, materials } = useGLTF('/Speeder.glb') as GLTFResult
 
   return (
     <Suspense fallback={null}>
-      <group ref={meshRef} position={position}>
+      <group ref={meshRef} {...props}>
         <group scale={20} rotation-y={Math.PI}>
           <mesh
             geometry={nodes.craft_speederC_1.geometry}
@@ -63,7 +64,7 @@ const Ship = ({
         <mesh
           ref={exhaustLeftRef}
           scale={[0.3, 0.3, 0.2]}
-          position={[-0.8, 0.5, 2]}
+          position={[-0.8, 0.7, 2]}
           rotation={[0, 0, 0]}
         >
           <dodecahedronBufferGeometry args={[1.5, 0]} />
@@ -72,7 +73,7 @@ const Ship = ({
         <mesh
           ref={exhaustRightRef}
           scale={[0.3, 0.3, 0.2]}
-          position={[0.8, 0.5, 2]}
+          position={[0.8, 0.7, 2]}
           rotation={[0, 0, 0]}
         >
           <dodecahedronBufferGeometry args={[1.5, 0]} />
