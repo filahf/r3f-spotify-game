@@ -17,7 +17,7 @@ const CoverArt = ({ imgUrl }: { imgUrl: string }) => {
   return (
     <>
       <Billboard follow={true} lockX={false} lockY={true} lockZ={true}>
-        <mesh position={[0, 120, -350]} scale={80}>
+        <mesh position={[0, 200, -350]} scale={70}>
           <planeBufferGeometry args={[10, 10, 16, 16]} />
           <MeshWobbleMaterial
             attach='material'
