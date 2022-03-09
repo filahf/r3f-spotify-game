@@ -15,7 +15,11 @@ export const middleware = async (req: NextRequest) => {
   // Allow the request if:
   // 1. Token request
   // 2. Token exist
-  if (url.pathname.includes('/api/auth') || token) {
+  if (
+    url.pathname.includes('/api/auth') ||
+    url.pathname.includes('Speeder.glb') ||
+    token
+  ) {
     return NextResponse.next()
   }
 
