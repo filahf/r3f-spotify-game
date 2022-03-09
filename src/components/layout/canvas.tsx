@@ -1,6 +1,6 @@
 import { Preload } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { CSSProperties } from 'react'
+import { CSSProperties, Suspense } from 'react'
 
 type LCanvasProps = {
   children: JSX.Element
@@ -18,7 +18,7 @@ const LCanvas = ({ children }: LCanvasProps) => {
   return (
     <Canvas mode='concurrent' dpr={[1, 1.5]} style={style}>
       <Preload all />
-      {children}
+      <Suspense fallback={null}>{children}</Suspense>
     </Canvas>
   )
 }
