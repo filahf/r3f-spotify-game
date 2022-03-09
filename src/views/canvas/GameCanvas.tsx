@@ -1,6 +1,7 @@
 import { CoverArt } from '@/components/canvas/cover-art'
 import { Effects } from '@/components/canvas/effects'
 import Explosions from '@/components/canvas/explosion/Explosion'
+import { Rings } from '@/components/canvas/rings'
 import { Road } from '@/components/canvas/road'
 import { GameShip } from '@/components/canvas/ship'
 import { Targets } from '@/components/canvas/targets'
@@ -47,6 +48,7 @@ const GameCanvas = () => {
       <Targets />
       <fog attach='fog' color='black' near={10} far={400} />
       <Explosions />
+      <Rings />
       <Suspense fallback={null}>
         {selectedTrack && (
           <CoverArt imgUrl={selectedTrack.album.images[0].url} />
