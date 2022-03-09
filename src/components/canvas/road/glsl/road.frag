@@ -1,6 +1,6 @@
 varying vec2 vUv; 
 uniform vec3 uColor;
-uniform float uTime;
+uniform float uFragmentTime;
 uniform float uLanes;
 uniform vec3 uBrokenLinesColor;
 uniform vec3 uShoulderLinesColor;
@@ -11,7 +11,7 @@ uniform float uBrokenLinesLengthPercentage;
 void main(){
   vec2 uv = vUv;
   vec3 color = vec3(uColor);
-  uv.y = mod(uv.y + uTime * 0.1,1.);
+  uv.y = mod(uv.y + uFragmentTime * 0.1,1.);
   float brokenLineWidth = 1. / uLanes * uBrokenLinesWidthPercentage;
   // How much % of the lane's space is empty
   float laneEmptySpace = 1. - uBrokenLinesLengthPercentage;

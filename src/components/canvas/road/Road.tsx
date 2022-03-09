@@ -1,4 +1,5 @@
 import { ROAD_LENGTH } from '@/shared/constants'
+import useStore from '@/shared/store'
 import { Plane } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
@@ -10,12 +11,16 @@ extend({ RoadShaderMaterial })
 
 const Road = () => {
   const ref = useRef<RoadShaderMaterialImpl>()
+  const start = useStore((s) => s.startGame)
 
   useFrame(({ clock }) => {
     if (ref.current) {
       const time = clock.getElapsedTime()
 
       ref.current.uTime = time
+      if (start) {
+        ref.current.uFragmentTime = time
+      }
     }
   })
 

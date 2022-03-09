@@ -8,6 +8,7 @@ import vertex from './glsl/road.vert'
 
 export type RoadShaderMaterialImpl = {
   uTime: number
+  uFragmentTime: number
   uLanes: number
   uBrokenLinesColor: THREE.Color
   uShoulderLinesColor: THREE.Color
@@ -25,6 +26,7 @@ const RoadShaderMaterial = shaderMaterial(
     uColor: new THREE.Color('black'),
     uTravelLength: ROAD_LENGTH,
     uTime: 0,
+    uFragmentTime: 0,
     uFreq: uFreq,
     uAmp: uAmp,
     uLanes: 3,
