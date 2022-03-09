@@ -10,7 +10,7 @@ import TargetInstance from './TargetInstance'
 const Targets = () => {
   const data = useStore((s) => s.audioAnalysis)
   const confirmedBeats = useMemo(
-    () => data?.beats.filter((beat) => beat.confidence > 0.6),
+    () => data?.beats.filter((beat) => beat.confidence > 0.3),
     [data]
   )
   return (

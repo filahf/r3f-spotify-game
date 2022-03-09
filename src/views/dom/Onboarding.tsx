@@ -30,7 +30,6 @@ const Onboarding = () => {
   const handleOnStart = useCallback(() => {
     if (!player || !selectedTrack) return
     spotifyApi.play({ uris: [selectedTrack.uri] }).then(() => {
-      player.seek(0)
       useStore.setState({ startGame: true })
     })
   }, [player, selectedTrack, spotifyApi])
