@@ -1,4 +1,4 @@
-import { ROAD_LENGTH } from '@/shared/constants'
+import { ROAD_LENGTH, SHIP_Z_OFFSET } from '@/shared/constants'
 import useStore from '@/shared/store'
 import { getXDistortion, getYDistortion } from '@/utils/distortion'
 import { Instances } from '@react-three/drei'
@@ -20,7 +20,7 @@ const Targets = () => {
           <sphereGeometry args={[1, 32, 32]} />
           <meshStandardMaterial roughness={0} color='#F6E05E' />
           {confirmedBeats.map((data, i) => {
-            const zPosition = data.start * -100
+            const zPosition = data.start * -100 + SHIP_Z_OFFSET
             const offset = i % 3 ? (Math.floor(Math.random() * 3) - 1) * 10 : 0
             const position: THREE.Vector3Tuple = [
               getXDistortion(zPosition / -ROAD_LENGTH, 0) +
