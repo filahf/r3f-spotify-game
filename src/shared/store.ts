@@ -21,6 +21,8 @@ type StoreType = {
   explosions: Explosion[]
   addExplosion: (positionX: number) => void
   resetGame: () => void
+  endGame: boolean
+  setEndGame: () => void
 }
 
 type Explosion = {
@@ -35,6 +37,7 @@ const newGameState = {
   streakMultiplier: 1,
   startGame: false,
   audioAnalysis: null,
+  endGame: false,
 }
 
 const useStore = create<StoreType>((set, get) => {
@@ -86,6 +89,9 @@ const useStore = create<StoreType>((set, get) => {
     resetGame: () => {
       get().spotifyWebPlayer?.pause()
       set(() => ({ ...newGameState }))
+    },
+    setEndGame: () => {
+      set(() => ({ audioAnalysis: null, endGame: true, startGame: false }))
     },
   }
 })

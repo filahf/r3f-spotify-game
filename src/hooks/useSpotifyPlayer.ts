@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 const useSpotifyPlayer = (accessToken: string | undefined) => {
   const toast = useToast()
   const selectedTrack = useStore((s) => s.selectedTrack)
+  const setEndGame = useStore((s) => s.setEndGame)
 
   useEffect(() => {
     if (!accessToken) {
@@ -43,6 +44,14 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
           })
 
           if (
+            useStore.getState().startGame &&
+            state.position === 0 &&
+            state.paused
+          ) {
+            setEndGame()
+          }
+
+          if (
             selectedTrack?.uri === state.track_window.current_track.uri &&
             !state.paused
           ) {
@@ -75,7 +84,7 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
 
       player.connect()
     }
-  }, [accessToken, toast, selectedTrack])
+  }, [accessToken, toast, selectedTrack, setEndGame])
 }
 
 export default useSpotifyPlayer
