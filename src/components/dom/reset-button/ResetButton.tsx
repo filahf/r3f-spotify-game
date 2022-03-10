@@ -11,8 +11,7 @@ const ResetButton = () => {
         left={0}
         top={0}
         px={3}
-        py={2}
-        mt={3}
+        mt={7}
         rounded='2xl'
         display='flex'
         color='white'
