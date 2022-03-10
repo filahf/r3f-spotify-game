@@ -1,16 +1,14 @@
 import { ResetButton } from '@/components/dom/reset-button'
 import { Score } from '@/components/dom/score'
-import { Box, Stack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
 const InGame = () => {
   return (
     <>
       <ResetButton />
-      <Stack textAlign={'center'} py={4}>
-        <Box>
-          <Score />
-        </Box>
-      </Stack>
+      <Box mt={6}>
+        <Score />
+      </Box>
     </>
   )
 }

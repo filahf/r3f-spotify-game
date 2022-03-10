@@ -1,5 +1,5 @@
 import useStore from '@/shared/store'
-import { InGame, Onboarding } from '@/views/dom'
+import { EndGame, InGame, Onboarding } from '@/views/dom'
 import dynamic from 'next/dynamic'
 
 const GameCanvas = dynamic<Record<string, unknown>>(
@@ -8,9 +8,16 @@ const GameCanvas = dynamic<Record<string, unknown>>(
 )
 
 const DomElements = () => {
-  const inGame = useStore((s) => s.startGame)
+  const start = useStore((s) => s.startGame)
+  const endGame = useStore((s) => s.endGame)
 
-  return inGame ? <InGame /> : <Onboarding />
+  return (
+    <>
+      {!start && !endGame && <Onboarding />}
+      {start && !endGame && <InGame />}
+      {!start && endGame && <EndGame />}
+    </>
+  )
 }
 
 const Page = () => {

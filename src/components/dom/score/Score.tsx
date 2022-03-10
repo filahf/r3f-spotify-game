@@ -9,6 +9,7 @@ const Score = () => {
 
   const score = useStore((s) => s.score)
   const streakMultiplier = useStore((s) => s.streakMultiplier)
+  const start = useStore((s) => s.startGame)
 
   useEffect(() => {
     if (!ref.current) return
@@ -20,14 +21,16 @@ const Score = () => {
 
   return (
     <>
-      <VStack mt={10}>
+      <VStack>
         <Text>SCORE</Text>
         <Text textStyle='score' mb={0} pb={0} ref={ref}>
           {score}
         </Text>
-        <Text mt={0} fontWeight='bold'>
-          {streakMultiplier}x
-        </Text>
+        {start && (
+          <Text mt={0} fontWeight='bold'>
+            {streakMultiplier}x
+          </Text>
+        )}
       </VStack>
     </>
   )
