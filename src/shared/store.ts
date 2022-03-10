@@ -83,7 +83,10 @@ const useStore = create<StoreType>((set, get) => {
         700
       )
     },
-    resetGame: () => set(() => ({ ...newGameState })),
+    resetGame: () => {
+      get().spotifyWebPlayer?.pause()
+      set(() => ({ ...newGameState }))
+    },
   }
 })
 
