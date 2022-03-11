@@ -8,6 +8,7 @@ import { useRef } from 'react'
 import * as THREE from 'three'
 
 import { ShipModel } from '.'
+import ShipTrails from './ShipTrails'
 
 const GameShip = () => {
   const controls = useControls()
@@ -51,20 +52,20 @@ const GameShip = () => {
       mesh.current.position.y =
         getYDistortion(SHIP_Z_OFFSET / ROAD_LENGTH, time) + 2
       mesh.current.rotation.z = rotationZ.get()
-      if (start) {
-        exhaustLeft.current.scale.x = 0.2 + Math.sin(time * 300) * 0.01
-        exhaustLeft.current.scale.z = 1 + Math.sin(time * 400) * 0.5
-        exhaustRight.current.scale.x = 0.2 + Math.sin(time * 300) * 0.01
-        exhaustRight.current.scale.z = 1 + Math.sin(time * 400) * 0.5
-      } else if (!start) {
-        exhaustLeft.current.scale.set(0, 0, 0)
-        exhaustRight.current.scale.set(0, 0, 0)
-      }
+
+      exhaustLeft.current.scale.set(0, 0, 0)
+      exhaustRight.current.scale.set(0, 0, 0)
     }
   })
 
   return (
     <>
+      {start && (
+        <>
+          <ShipTrails startPos={exhaustLeft} />
+          <ShipTrails startPos={exhaustRight} />
+        </>
+      )}
       <ShipModel
         meshRef={mesh}
         exhaustLeftRef={exhaustLeft}
