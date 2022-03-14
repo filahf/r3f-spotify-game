@@ -1,11 +1,15 @@
-import { Search } from '@/components/dom/search'
-import useSpotify from '@/hooks/useSpotify'
+import {
+  ConnectStep,
+  SelectTrackStep,
+  StartStep,
+  steps,
+} from '@/components/dom/stepper-steps'
 import useSpotifyPlayer from '@/hooks/useSpotifyPlayer'
 import useStore from '@/shared/store'
-import { Box, Button, Center, Spinner, Stack } from '@chakra-ui/react'
+import { Box, Center, Spinner, Stack } from '@chakra-ui/react'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { useSession } from 'next-auth/react'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 
 const Onboarding = () => {
   const { data: session } = useSession()
@@ -17,22 +21,7 @@ const Onboarding = () => {
     initialStep: 0,
   })
 
-  const steps = [
-    { label: 'Connect Spotify' },
-    { label: 'Select Track' },
-    { label: 'Start the game' },
-  ]
-
-  const spotifyApi = useSpotify()
-
   useSpotifyPlayer(session?.user.accessToken)
-
-  const handleOnStart = useCallback(() => {
-    if (!player || !selectedTrack) return
-    spotifyApi.play({ uris: [selectedTrack.uri] }).then(() => {
-      useStore.setState({ startGame: true })
-    })
-  }, [player, selectedTrack, spotifyApi])
 
   useEffect(() => {
     if (connected && selectedTrack) {
@@ -52,14 +41,7 @@ const Onboarding = () => {
             <Box width='60%'>
               <Steps activeStep={activeStep}>
                 {steps.map(({ label }) => (
-                  <Step label={label} key={label}>
-                    <Box my={5}>
-                      {activeStep === 3 && (
-                        <Button onClick={handleOnStart}>START</Button>
-                      )}
-                      {activeStep === 1 && <Search />}
-                    </Box>
-                  </Step>
+                  <Step label={label} key={label} />
                 ))}
               </Steps>
             </Box>
@@ -67,7 +49,9 @@ const Onboarding = () => {
         )}
         <Box my={5}>
           {!player && <Spinner />}
-          {activeStep === 3 && <Button onClick={handleOnStart}>START</Button>}
+          {activeStep === 0 && <ConnectStep />}
+          {activeStep === 1 && <SelectTrackStep />}
+          {activeStep === 3 && <StartStep />}
         </Box>
       </Box>
     </Stack>
