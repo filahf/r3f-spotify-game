@@ -16,14 +16,11 @@ const Landing = () => {
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}
         >
-          Lorem Ipsum{' '}
-          <Text as={'span'} color={'green.400'}>
-            made easy
-          </Text>
+          {process.env.NEXT_PUBLIC_APP_NAME}
         </Heading>
         <Text color={'gray.500'} maxW={'3xl'}>
-          This game is built using Next.js + Three.js. To enter the game you
-          need to be authorized.
+          You need to be authorized with a Spotify Premium account to enter the
+          game.
         </Text>
         <Stack spacing={6} direction={'row'}>
           <Button

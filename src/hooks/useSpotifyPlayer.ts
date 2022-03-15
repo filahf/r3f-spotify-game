@@ -24,7 +24,7 @@ const useSpotifyPlayer = (accessToken: string | undefined) => {
 
     window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new window.Spotify.Player({
-        name: 'Filip App',
+        name: process.env.NEXT_PUBLIC_APP_NAME || 'Audio Game',
         getOAuthToken: (cb) => {
           cb(accessToken)
         },
