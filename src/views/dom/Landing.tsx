@@ -19,7 +19,7 @@ const Landing = () => {
           {process.env.NEXT_PUBLIC_APP_NAME}
         </Heading>
         <Text color={'gray.500'} maxW={'3xl'}>
-          You need to be authorized with a Spotify Premium account to enter the
+          You need to authorize with a Spotify Premium account to enter the
           game.
         </Text>
         <Stack spacing={6} direction={'row'}>
