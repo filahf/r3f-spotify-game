@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const middleware = async (req: NextRequest) => {
   // @ts-ignore
-  const token = await getToken({ req, secret: process.env.SECRET })
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
 
   const url = req.nextUrl.clone()
 
