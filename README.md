@@ -30,6 +30,9 @@ A Spotify Premium subscription is required to play the game.
 ## Controls
 Change lane with A,S,D or :arrow_left: :arrow_down: :arrow_right:
 
+## Contributing
+
+Contributions are more than welcome!
 
 ## Attributions
 
