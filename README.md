@@ -2,6 +2,9 @@
 <p align="center">
     <img src="screenshots/logo.gif" alt="Logo"  height="180">
   <h3 align="center">next-audio-game</h3>
+ <p align="center">
+  <a href="https://streamable.com/1a5mx3"><strong>Demo video »</strong></a>
+  </p>
 </p>
 
 This game was made with the ambition of getting more familiar with 3D content on the web. The game itself draws inspiration from the classic game [AudioSurf](https://store.steampowered.com/app/12900/AudioSurf/).
